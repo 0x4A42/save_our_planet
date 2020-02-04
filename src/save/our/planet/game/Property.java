@@ -17,6 +17,7 @@ public class Property extends BoardSquare {
 	private boolean secondMinorImprovement;
 	private boolean thirdMinorImprovement;
 	private boolean majorImprovement;
+	private String owner = "bank";
 
 	/**
 	 * 
@@ -42,7 +43,7 @@ public class Property extends BoardSquare {
 	 *                                thirdMinorImprovement to be true)
 	 */
 	public Property(String name, int price, String colour, boolean firstMinorImprovement,
-			boolean secondMinorImprovement, boolean thirdMinorImprovement, boolean majorImprovement) {
+			boolean secondMinorImprovement, boolean thirdMinorImprovement, boolean majorImprovement, String owner) {
 		super(name);
 		this.price = price;
 		this.setColour(colour);
@@ -50,6 +51,7 @@ public class Property extends BoardSquare {
 		this.setSecondMinorImprovement(secondMinorImprovement);
 		this.setThirdMinorImprovement(thirdMinorImprovement);
 		this.setMajorImprovement(majorImprovement);
+		this.owner = owner;
 
 	} // end of Property(constructor with args)
 
@@ -183,4 +185,20 @@ public class Property extends BoardSquare {
 
 	} // end of setMajorImprovement
 
+	/**
+	 * @return the owner
+	 */
+	public String getOwner() {
+		return owner;
+	}
+
+	/**
+	 * @param owner the owner to set
+	 */
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	
+	
 }
