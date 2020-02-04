@@ -29,46 +29,10 @@ public class BoardGame {
 
 		// Invoke methods to set up the game
 		setUpDice(dice);
-		setUpBoard(gameBoard);
 		setUpPlayers(currentPlayers);
+		setUpBoard(gameBoard);
 
 	} // end of main
-
-
-
-	/**
-	 * This method will create the board by creating individual Board Square
-	 * objects, adding them to an ArrayList and then returning this ArrayList to the
-	 * calling method
-	 * 
-	 * @return the populated gameBoard ArrayList
-	 */
-	public static ArrayList<BoardSquare> setUpBoard(ArrayList<BoardSquare> gameBoard) {
-		// create board squares for field one area one
-
-		// create board squares for field one area two
-
-		// create board squares for field one area three
-
-		// create board squares for field two area one
-
-		// create board squares for field two area two
-
-		// create board squares for field three area one
-
-		// create board squares for field three area two
-
-		// create board squares for field three area three
-
-		// create board squares for field four area one
-
-		// create board squares for field four area two
-
-		// add board squares to the ArrayList
-
-		// return populated gameboard to the setUpGame method
-		return gameBoard;
-	} // end of setUpBoard
 
 	/**
 	 * This method will create an ArrayList that holds the players within a current
@@ -117,7 +81,8 @@ public class BoardGame {
 				} // end of if
 			} // end of while
 			player.setMoney(200);
-			// add to array
+			player.setBoardPosition(0);
+			// add to ArrayList
 			currentPlayers.add(player);
 		} // end of for loop
 
@@ -175,7 +140,111 @@ public class BoardGame {
 
 		return validPiece;
 	} // end of checkValidPlayerPiece
-	
+
+	/**
+	 * This method will create the board by creating individual Board Square
+	 * objects, adding them to an ArrayList and then returning this ArrayList to the
+	 * calling method Field one will be based around biomass, Field Two will be
+	 * based around Hydroelectricity, Field Three will be based around Solar energy
+	 * and Field Four will be based around Wind energy
+	 * 
+	 * 
+	 * @return the populated gameBoard ArrayList
+	 */
+	public static ArrayList<BoardSquare> setUpBoard(ArrayList<BoardSquare> gameBoard) {
+		// create 'special' board squares
+		BoardSquare startSquare = new BoardSquare("Start Square", 0);
+		BoardSquare blankSquare = new BoardSquare("Carbon Neutral Square", 10);
+		// create property squares for field one area one
+		Property f1a1p1 = new Property("Ironbridge", 1, 60, "Oak", false, false, false, false, "Bank");
+		Property f1a1p2 = new Property("Polaniec", 2, 60, "Oak", false, false, false, false, "Bank");
+		Property f1a1p3 = new Property("Alholmens Kraft", 3, 60, "Oak", false, false, false, false, "Bank");
+		// create property squares for field one area two
+		Property f1a2p1 = new Property("Kymijärvi II", 4, 90, "Pine", false, false, false, false, "Bank");
+		Property f1a2p2 = new Property("Wisapower", 5, 90, "Pine", false, false, false, false, "Bank");
+		Property f1a2p3 = new Property("Vaasa Bio Plant", 6, 90, "Pine", false, false, false, false, "Bank");
+		// create property squares for field one area three
+		Property f1a3p1 = new Property("New Hope", 7, 120, "Cedar", false, false, false, false, "Bank");
+		Property f1a3p2 = new Property("Kaukaan Voima", 8, 120, "Cedar", false, false, false, false, "Bank");
+		Property f1a3p3 = new Property("Seinäjoki", 9, 120, "Cedar", false, false, false, false, "Bank");
+		// create property squares for field two area one
+		Property f2a1p1 = new Property("Nurek Dam", 11, 150, "Sky Blue", false, false, false, false, "Bank");
+		Property f2a1p2 = new Property("Three Gorges Dam", 12, 150, "Sky Blue", false, false, false, false, "Bank");
+		Property f2a1p3 = new Property("Itaipu Dam", 13, 150, "Sky Blue", false, false, false, false, "Bank");
+		Property f2a1p4 = new Property("Longtan Dam", 14, 150, "Sky Blue", false, false, false, false, "Bank");
+		// create property squares for field two area two
+		Property f2a2p1 = new Property("Xiangjiaba", 15, 180, "Cerulean", false, false, false, false, "Bank");
+		Property f2a2p2 = new Property("Guri", 16, 180, "Cerulean", false, false, false, false, "Bank");
+		Property f2a2p3 = new Property("Xiluodu", 17, 180, "Cerulean", false, false, false, false, "Bank");
+		Property f2a2p4 = new Property("Krasnoyarsk", 18, 180, "Cerulean", false, false, false, false, "Bank");
+		Property f2a2p5 = new Property("Robert-Bourassa", 19, 180, "Cerulean", false, false, false, false, "Bank");
+		// create property squares for field three area one
+		Property f3a1p1 = new Property("Solar Star", 20, 210, "Lemon", false, false, false, false, "Bank");
+		Property f3a1p2 = new Property("Desert Sunlight", 21, 210, "Lemon", false, false, false, false, "Bank");
+		Property f3a1p3 = new Property("Topaz", 22, 210, "Lemon", false, false, false, false, "Bank");
+		// create property squares for field three area two
+		Property f3a2p1 = new Property("Longyangxia", 23, 240, "Honey", false, false, false, false, "Bank");
+		Property f3a2p2 = new Property("Copper Mountain", 24, 240, "Honey", false, false, false, false, "Bank");
+		Property f3a2p3 = new Property("NP Kunta", 25, 240, "Honey", false, false, false, false, "Bank");
+		// create property squares for field three area three
+		Property f3a3p1 = new Property("Rewa Ultra Mega", 26, 270, "Dandelion", false, false, false, false, "Bank");
+		Property f3a3p2 = new Property("Mula Photovoltaic", 27, 270, "Dandelion", false, false, false, false, "Bank");
+		Property f3a3p3 = new Property("Mount Signal", 28, 270, "Dandelion", false, false, false, false, "Bank");
+		// create property squares for field four area one
+		Property f4a1p1 = new Property("Walney", 29, 300, "Graphite", false, false, false, false, "Bank");
+		Property f4a1p2 = new Property("Fantanele-Cogealac", 30, 300, "Graphite", false, false, false, false, "Bank");
+		Property f4a1p3 = new Property("Gemini", 31, 300, "Graphite", false, false, false, false, "Bank");
+		Property f4a1p4 = new Property("Beatrice", 32, 300, "Graphite", false, false, false, false, "Bank");
+		Property f4a1p5 = new Property("Whitelee", 32, 300, "Graphite", false, false, false, false, "Bank");
+		// create property squares for field four area two
+		Property f4a2p1 = new Property("Gode Wind 1", 33, 330, "Pewter", false, false, false, false, "Bank");
+		Property f4a2p2 = new Property("Gode Wind 2", 34, 330, "Pewter", false, false, false, false, "Bank");
+		Property f4a2p3 = new Property("Gwynt y Môr", 35, 330, "Pewter", false, false, false, false, "Bank");
+		Property f4a2p4 = new Property("Race Bank", 36, 330, "Pewter", false, false, false, false, "Bank");
+		// add board squares to the ArrayList
+		gameBoard.add(startSquare);
+		gameBoard.add(f1a1p1);
+		gameBoard.add(f1a1p2);
+		gameBoard.add(f1a1p3);
+		gameBoard.add(f1a2p1);
+		gameBoard.add(f1a2p2);
+		gameBoard.add(f1a2p3);
+		gameBoard.add(f1a3p1);
+		gameBoard.add(f1a3p2);
+		gameBoard.add(f1a3p3);
+		gameBoard.add(blankSquare);
+		gameBoard.add(f2a1p1);
+		gameBoard.add(f2a1p2);
+		gameBoard.add(f2a1p3);
+		gameBoard.add(f2a1p4);
+		gameBoard.add(f2a2p1);
+		gameBoard.add(f2a2p2);
+		gameBoard.add(f2a2p3);
+		gameBoard.add(f2a2p4);
+		gameBoard.add(f2a2p5);
+		gameBoard.add(f3a1p1);
+		gameBoard.add(f3a1p2);
+		gameBoard.add(f3a1p3);
+		gameBoard.add(f3a2p1);
+		gameBoard.add(f3a2p2);
+		gameBoard.add(f3a2p3);
+		gameBoard.add(f3a3p1);
+		gameBoard.add(f3a3p2);
+		gameBoard.add(f3a3p3);
+		gameBoard.add(f4a1p1);
+		gameBoard.add(f4a1p2);
+		gameBoard.add(f4a1p3);
+		gameBoard.add(f4a1p4);
+		gameBoard.add(f4a1p5);
+		gameBoard.add(f4a2p1);
+		gameBoard.add(f4a2p2);
+		gameBoard.add(f4a2p3);
+		gameBoard.add(f4a2p4);
+
+		// return populated gameboard to the calling method
+		return gameBoard;
+	} // end of setUpBoard
+
 	/**
 	 * This method will simulate the roll of two die. The Random object will roll
 	 * each die's number between 1-6 (inclusive) and display it to the user.

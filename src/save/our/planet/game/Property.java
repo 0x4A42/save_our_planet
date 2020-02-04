@@ -42,9 +42,9 @@ public class Property extends BoardSquare {
 	 *                                major improvement (requires
 	 *                                thirdMinorImprovement to be true)
 	 */
-	public Property(String name, int price, String colour, boolean firstMinorImprovement,
+	public Property(String name, int boardPosition, int price, String colour, boolean firstMinorImprovement,
 			boolean secondMinorImprovement, boolean thirdMinorImprovement, boolean majorImprovement, String owner) {
-		super(name);
+		super(name, boardPosition);
 		this.price = price;
 		this.setColour(colour);
 		this.firstMinorImprovement = firstMinorImprovement;

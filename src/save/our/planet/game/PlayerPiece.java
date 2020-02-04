@@ -14,6 +14,7 @@ public class PlayerPiece extends BoardPiece {
 	private String playerName;
 	private String character;
 	private double money;
+	private int boardPosition;
 
 	/**
 	 * Default constructor
@@ -27,11 +28,11 @@ public class PlayerPiece extends BoardPiece {
 	 * @param playerName
 	 * @param character
 	 */
-	public PlayerPiece(String playerName, String character, double money) {
+	public PlayerPiece(String playerName, String character, double money, int boardPosition) {
 		this.setPlayerName(playerName);
 		this.character = character;
 		this.money = money;
-		// TODO Auto-generated constructor stub
+		this.setBoardPosition(boardPosition);
 	} // end of PlayerPiece(Constructor with args)
 
 	/**
@@ -68,8 +69,9 @@ public class PlayerPiece extends BoardPiece {
 	 * null.
 	 * 
 	 * @param character the character to set
+	 * @throws IllegalArgumentException
 	 */
-	public void setCharacter(String character) {
+	public void setCharacter(String character) throws IllegalArgumentException {
 		if (character.equalsIgnoreCase("Tree")) {
 			this.character = character;
 		} else if (character.equalsIgnoreCase("Fish")) {
@@ -83,8 +85,9 @@ public class PlayerPiece extends BoardPiece {
 		} else if (character.equalsIgnoreCase("Bicycle")) {
 			this.character = character;
 		} else {
-			System.err.println("Error setting character piece for " + this.playerName + ". Defaulting to null.");
-			this.character = "null";
+			throw new IllegalArgumentException(
+					"Error -  you have entered an invalid character piece. Please refer to the manual to see acceptable inputs.");
+
 		}
 	} // end of setCharacter
 
@@ -101,5 +104,28 @@ public class PlayerPiece extends BoardPiece {
 	public void setMoney(double money) {
 		this.money = money;
 	} // end of setMoney
+
+	/**
+	 * @return the boardPosition
+	 */
+	public int getBoardPosition() {
+		return boardPosition;
+	}
+
+	/**
+	 * This method sets the position of the player. Validation ensures it can only
+	 * exist within the current confines of the board.
+	 * 
+	 * @param boardPosition the boardPosition to set
+	 * @throws IllegalArgumentException
+	 */
+	public void setBoardPosition(int boardPosition) throws IllegalArgumentException {
+		if (boardPosition >= 0 && boardPosition <= 37) {
+			this.boardPosition = boardPosition;
+		} else {
+			throw new IllegalArgumentException(
+					"Board position must be between 0 - XX (inclusive). You have entered " + boardPosition);
+		}
+	}
 
 } // end of class
