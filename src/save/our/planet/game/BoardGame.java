@@ -132,6 +132,7 @@ public class BoardGame {
 		case "TURTLE":
 		case "PENGUIN":
 		case "BICYCLE":
+		case "TREE":
 			validPiece = true;
 			break;
 		default:

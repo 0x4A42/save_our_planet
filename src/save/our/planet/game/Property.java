@@ -83,19 +83,31 @@ public class Property extends BoardSquare {
 	 * an error message being displayed to the user.
 	 * 
 	 * @param colour the colour to set
+	 * @throws IllegalArgumentException
 	 */
-	public void setColour(String colour) {
-		if (colour.equalsIgnoreCase("blue")) {
+	public void setColour(String colour) throws IllegalArgumentException{
+		if (colour.equalsIgnoreCase("Oak")) {
 			this.colour = colour;
-		} else if (colour.equalsIgnoreCase("green")) {
+		} else if (colour.equalsIgnoreCase("Pine")) {
 			this.colour = colour;
-		} else if (colour.equalsIgnoreCase("red")) {
+		} else if (colour.equalsIgnoreCase("Cedar")) {
 			this.colour = colour;
-		} else if (colour.equalsIgnoreCase("yellow")) {
+		} else if (colour.equalsIgnoreCase("Sky Blue")) {
+			this.colour = colour;
+		}  else if (colour.equalsIgnoreCase("Cerulean")) {
+			this.colour = colour;
+		} else if (colour.equalsIgnoreCase("Lemon")) {
+			this.colour = colour;
+		} else if (colour.equalsIgnoreCase("Honey")) {
+			this.colour = colour;
+		} else if (colour.equalsIgnoreCase("Dandelion")) {
+			this.colour = colour;
+		} else if (colour.equalsIgnoreCase("Graphite")) {
+			this.colour = colour;
+		}else if (colour.equalsIgnoreCase("Pewter")) {
 			this.colour = colour;
 		} else {
-			System.err.println("Error setting colour for " + this.getName() + ". Defaulting to null.");
-			this.colour = "null";
+			throw new IllegalArgumentException("Colour defined for " +this.getName() +" is invalid. Refer to manual for acceptable colours.");
 		}
 	} // end of setColour
 
