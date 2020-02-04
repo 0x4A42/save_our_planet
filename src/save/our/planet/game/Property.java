@@ -18,6 +18,7 @@ public class Property extends BoardSquare {
 	private boolean thirdMinorImprovement;
 	private boolean majorImprovement;
 	private String owner = "bank";
+	private int field;
 
 	/**
 	 * 
@@ -43,7 +44,7 @@ public class Property extends BoardSquare {
 	 *                                thirdMinorImprovement to be true)
 	 */
 	public Property(String name, int boardPosition, int price, String colour, boolean firstMinorImprovement,
-			boolean secondMinorImprovement, boolean thirdMinorImprovement, boolean majorImprovement, String owner) {
+			boolean secondMinorImprovement, boolean thirdMinorImprovement, boolean majorImprovement, String owner, int field) {
 		super(name, boardPosition);
 		this.price = price;
 		this.setColour(colour);
@@ -52,6 +53,7 @@ public class Property extends BoardSquare {
 		this.setThirdMinorImprovement(thirdMinorImprovement);
 		this.setMajorImprovement(majorImprovement);
 		this.owner = owner;
+		this.setField(field);
 
 	} // end of Property(constructor with args)
 
@@ -211,6 +213,27 @@ public class Property extends BoardSquare {
 		this.owner = owner;
 	}
 
+	/**
+	 * @return the field
+	 */
+	public int getField() {
+		return field;
+	}
+
+	/**
+	 * This method will set the field of the board square, with validation ensuring it is between 1 - 4. 
+	 * @param field
+	 * @throws IllegalArgumentException
+	 */
+	public void setField(int field) throws IllegalArgumentException {
+		if (field >= 1 && field <= 4) {
+			this.field = field;
+		} else {
+			throw new IllegalArgumentException("Fields must be within the range of 1 - 4 (inclusive). You have entered " +field);
+		}
+	}
+
+	
 	
 	
 }
