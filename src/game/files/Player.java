@@ -12,6 +12,9 @@ public class Player {
 
 	private final int LOWER_PLAYER_ID = 1;
 	private final int UPPER_PLAYER_ID = 4;
+	private final int LOWER_MONEY_LIMIT = 0;
+	private final int LOWER_NAME_LIMIT = 1;
+	private final int UPPER_NAME_LIMIT = 15;
 	private int playerId;
 	private String playerName;
 	private double money;
@@ -50,12 +53,16 @@ public class Player {
 	 * truncated.
 	 * 
 	 * @param playerName
+	 * @throws NullPointerException if the name is <1 character in length
 	 */
-	public void setPlayerName(String playerName) {
-		if (playerName.length() <= 15) {
+
+	public void setPlayerName(String playerName) throws NullPointerException {
+		if (playerName.length() >= LOWER_NAME_LIMIT && playerName.length() <= UPPER_NAME_LIMIT) {
 			this.playerName = playerName;
-		} else {
-			this.playerName = playerName.substring(0, 14);
+		} else if (playerName.length() > UPPER_NAME_LIMIT) {
+			this.playerName = playerName.substring(0, 15);
+		} else if (playerName.length() < LOWER_NAME_LIMIT) {
+			throw new NullPointerException("Name must be at least one character long.");
 		}
 	}
 
@@ -71,9 +78,16 @@ public class Player {
 	 * Sets the amount of money the player has
 	 * 
 	 * @param money
+	 * @throws IllegalArgumentException, when value entered is <0
 	 */
-	public void setMoney(double money) {
-		this.money = money;
+
+	public void setMoney(double money) throws IllegalArgumentException {
+		if (money >= LOWER_MONEY_LIMIT) {
+			this.money = money;
+		} else {
+			throw new IllegalArgumentException("Error. You cannot enter a money value below 0.");
+		}
+
 	}
 
 	/**
@@ -97,7 +111,7 @@ public class Player {
 			this.boardPosition = boardPosition;
 		} else {
 			throw new IllegalArgumentException(
-					"Board position must be between 0 - XX (inclusive). You have entered " + boardPosition);
+					"Board position must be between 0 - 11 (inclusive). You have entered " + boardPosition +".");
 		}
 	}
 
@@ -120,7 +134,7 @@ public class Player {
 			this.playerId = playerId;
 		} else {
 			throw new IllegalArgumentException(
-					"Player ID must be between 1 - 4 (inclusive). You have entered: " + playerId);
+					"Player ID must be between 1 - 4 (inclusive). You have entered: " + playerId +".");
 		}
 	}
 
