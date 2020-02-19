@@ -10,6 +10,8 @@ package game.files;
  */
 public abstract class FieldBoard {
 
+	private final int LOWER_SPACE_NAME_LIMIT = 1;
+	private final int UPPER_SPACE_NAME_LIMIT = 25;
 	private String spaceName;
 	private boolean ownable;
 
@@ -39,12 +41,20 @@ public abstract class FieldBoard {
 	}
 
 	/**
-	 * Sets the name of the space.
+	 * Sets the name of the space. If it is above 25 characters in length, excess is
+	 * truncated.
 	 * 
 	 * @param spaceName
+	 * @throws NullPointerException if space name is < 1 in length
 	 */
-	public void setSpaceName(String spaceName) {
-		this.spaceName = spaceName;
+	public void setSpaceName(String spaceName) throws NullPointerException {
+		if (spaceName.length() >= LOWER_SPACE_NAME_LIMIT && spaceName.length() <= UPPER_SPACE_NAME_LIMIT) {
+			this.spaceName = spaceName;
+		} else if (spaceName.length() > UPPER_SPACE_NAME_LIMIT) {
+			this.spaceName = spaceName.substring(0, 25);
+		} else if (spaceName.length() < LOWER_SPACE_NAME_LIMIT) {
+			throw new NullPointerException("Error. Space name must be at least one character.");
+		}
 	}
 
 	/**
@@ -64,5 +74,5 @@ public abstract class FieldBoard {
 	public void setOwnable(boolean ownable) {
 		this.ownable = ownable;
 	}
- 
+
 }

@@ -120,7 +120,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			setOwnerId(playerId);
 		}
 
-	}
+	} 
 
 	/**
 	 * 
