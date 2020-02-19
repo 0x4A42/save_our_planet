@@ -90,19 +90,19 @@ public class BoardSetUp {
 		// Set up spaces
 		AreaBoard tile01 = new AreaBoard("Start", false, 0, 0);
 
-		AreaBoard tile02 = new AreaBoard("Ironbridg", true, 1, 50);
+		AreaBoard tile02 = new AreaBoard("Ironbridge", true, 1, 50);
 		AreaBoard tile03 = new AreaBoard("Polaniec", true, 1, 50);
-		AreaBoard tile04 = new AreaBoard("New Hope", true, 2, 60);
-		AreaBoard tile05 = new AreaBoard("Kaukaan Voima", true, 2, 60);
+		AreaBoard tile04 = new AreaBoard("Jiuquan", true, 2, 60);
+		AreaBoard tile05 = new AreaBoard("Capricorn Ridge", true, 2, 60);
 
 		AreaBoard tile06 = new AreaBoard("Eci-Pit Stop", false, 0, 0);
 
-		AreaBoard tile07 = new AreaBoard("Solar Star", true, 2, 60);
+		AreaBoard tile07 = new AreaBoard("Walney", true, 2, 60);
 		AreaBoard tile08 = new AreaBoard("Desert Sunlight", true, 3, 65);
 		AreaBoard tile09 = new AreaBoard("Topaz", true, 3, 65);
 		AreaBoard tile10 = new AreaBoard("Rewa Ultra Mega", true, 3, 65);
-		AreaBoard tile11 = new AreaBoard("Walney", true, 4, 80);
-		AreaBoard tile12 = new AreaBoard("Whitelee", true, 4, 80);
+		AreaBoard tile11 = new AreaBoard("Three Gorges", true, 4, 80);
+		AreaBoard tile12 = new AreaBoard("Itaipu", true, 4, 80);
 
 		// Adding to board
 		theBoard.add(tile01);
@@ -117,6 +117,7 @@ public class BoardSetUp {
 		theBoard.add(tile10);
 		theBoard.add(tile11);
 		theBoard.add(tile12);
+		
 
 		// returns the ArrayList which has been populated with tiles.
 		return theBoard;

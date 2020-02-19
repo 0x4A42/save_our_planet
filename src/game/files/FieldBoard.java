@@ -64,5 +64,5 @@ public abstract class FieldBoard {
 	public void setOwnable(boolean ownable) {
 		this.ownable = ownable;
 	}
-
+ 
 }

@@ -14,6 +14,10 @@ public class AreaBoard extends FieldBoard implements IBought {
 
 	private final int LOWER_PLAYER_ID = 1;
 	private final int UPPER_PLAYER_ID = 4;
+	private final int LOWER_FIELD_ID = 0;
+	private final int UPPER_FIELD_ID = 4;
+	private final int LOWER_COST_LIMIT = 50;
+	private final int UPPER_COST_LIMIT = 80;
 	private int fieldId;
 	private int cost;
 	private boolean owned;
@@ -51,12 +55,22 @@ public class AreaBoard extends FieldBoard implements IBought {
 	}
 
 	/**
-	 * Sets the ID of the field.
+	 * Sets the ID of the field. 0 = 'board' squares such as 'start' or blank
+	 * squares 1 = property squares related to biomass 2 = property squares related
+	 * to wind farms 3 = property squares related to solar power 4 = property
+	 * squares related to hydroelectricity
 	 * 
 	 * @param fieldId
+	 * @throws IllegalArgumentException if ID is outside of range
 	 */
-	public void setFieldId(int fieldId) {
-		this.fieldId = fieldId;
+	public void setFieldId(int fieldId) throws IllegalArgumentException {
+		if (fieldId >= LOWER_FIELD_ID && fieldId <= UPPER_FIELD_ID) {
+			this.fieldId = fieldId;
+		} else {
+			throw new IllegalArgumentException(
+					"Field ID must be between 0 - 4 (inclusive). You have entered: " + fieldId + ".");
+		}
+
 	}
 
 	/**
@@ -77,11 +91,22 @@ public class AreaBoard extends FieldBoard implements IBought {
 	}
 
 	/**
+	 * Sets the cost of the property. If the field ID is 0, sets to 0 no matter the
+	 * arg.
 	 * 
 	 * @param cost, the cost of the property to set
+	 * @throws IllegalArgumentException, if ID is not 0 and cost is outside of
+	 *                                   range.
 	 */
-	public void setCost(int cost) {
-		this.cost = cost;
+	public void setCost(int cost) throws IllegalArgumentException {
+		if (cost >= LOWER_COST_LIMIT && cost <= UPPER_COST_LIMIT && this.fieldId != 0) {
+			this.cost = cost;
+		} else if (this.fieldId == 0) {
+			this.cost = 0;
+		} else if (cost < LOWER_COST_LIMIT || cost > UPPER_COST_LIMIT && this.fieldId != 0) {
+			throw new IllegalArgumentException(
+					"Cost must be between 50 - 80 (inclusive). You have entered: " + cost + ".");
+		}
 	}
 
 	/**

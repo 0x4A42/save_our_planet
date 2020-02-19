@@ -20,7 +20,7 @@ public class PlayGame {
 
 	// Scanner that is used by all methods in game
 	public static Scanner input = new Scanner(System.in);
-
+ 
 	/**
 	 * default constructor
 	 */
