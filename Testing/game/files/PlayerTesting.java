@@ -11,8 +11,8 @@ class PlayerTesting {
 	int invalidPlayerIdLower, invalidPlayerIdUpper;
 	String validPlayerNameLowerBoundary, validPlayerNameUpperBoundary, validPlayerNameLower, validPlayerNameUpper;
 	String invalidPlayerNameLower, invalidPlayerNameUpper;
-	double validMoneyBoundary, validMoney;
-	double invalidMoney;
+	int validMoneyBoundary, validMoney;
+	int invalidMoney;
 	int validBoardPositionLowerBoundary, validBoardPositionUpperBoundary, validBoardPositionLower,
 			validBoardPositionUpper;
 	int invalidBoardPositionLower, invalidBoardPositionUpper;

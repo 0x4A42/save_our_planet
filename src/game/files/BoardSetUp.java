@@ -31,7 +31,7 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the amount of Eco Warriors playing.");
+			System.out.println("Please enter the amount of Eco Warriors playing!");
 
 			amountOfPlayers = input.nextInt();
 			input.nextLine();
@@ -64,12 +64,11 @@ public class BoardSetUp {
 			// System.out.println("Please enter the Eco Warrior's name.");
 			System.out.println("Please enter player name.");
 			Player player = new Player();
-
 			String playerName = input.nextLine();
 			input.reset();
 			player.setPlayerName(playerName);
 			player.setPlayerId(loop + 1);
-			player.setMoney(200);
+			player.setMoney(125);
 			player.setBoardPosition(0);
 
 			arrayPlayer.add(player);

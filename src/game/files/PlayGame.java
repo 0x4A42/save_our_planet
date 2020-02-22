@@ -18,10 +18,12 @@ import java.util.Scanner;
  * @author v3 Bekah, Ricards (Movement, buy/pay rent, & upgrade systems
  *         implemented)
  * @author v4 Catherine (quit and winning conditions, end game implemented,
- *         continueGame made into static instance variable, rollDice rewrite to
- *         loop for numberOfDice, numberOfDice made into constant)
+ *         print portfolio implemented, continueGame made into static instance
+ *         variable, rollDice rewrite to loop for numberOfDice, numberOfDice
+ *         made into constant)
  * @author v4.1 Jordan (bug fixes, some additional documentation and rewording
- *         of prompts to user)
+ *         of prompts to user) Catherine (view portfolio function).
+ *
  *
  */
 public class PlayGame {
@@ -53,17 +55,6 @@ public class PlayGame {
 
 		// Tests to see if Objects are working (To be removed later)
 		gameBoard = BoardSetUp.setUpBoard(gameBoard);
-
-		gameBoard.get(1).setOwnerId(1);
-		gameBoard.get(2).setOwnerId(1);
-
-		System.out.println(gameBoard.get(1).getOwnerId());
-		System.out.println(gameBoard.get(2).getOwnerId());
-
-		System.out.println("Game board space 1: " + gameBoard.get(0).getSpaceName());
-		System.out.println("First player has id: " + currentPlayers.get(0).getPlayerId());
-
-		System.out.println("Number of players in array: " + currentPlayers.size() + "\n\n");
 
 		// returnStr(input);
 
@@ -107,25 +98,31 @@ public class PlayGame {
 
 			System.out.println("\nIt's now " + currentPlayers.get(loop).getPlayerName() + "'s turn!");
 			System.out.println("You currently have " + currentPlayers.get(loop).getMoney() + " EcoCoins!");
-
-			System.out.println("\nEnter X to roll the dice.");
-			System.out.println("Enter Y to view and upgrade your owned properties.");
-			System.out.println("Enter Q to quit.");
+			// menu prompt to user
+			System.out.println("\nEnter X to roll the dice...");
+			System.out.println("Enter U to upgrade your property...");
+			System.out.println("Enter P to view your portfolio...");
+			System.out.println("Enter Q to quit");
 			// input.nextLine();
 			inputStr = input.nextLine();
 
+			// switch statement to complete different functions based on the user's choice
 			switch (inputStr.toLowerCase()) {
 
 			case "x": // roll
 				roll = (rollDice());
 				movePosition(roll, currentPlayers, loop, gameBoard);
 				break;
-			case "y": // view portfolio
-				upgrade(currentPlayers, loop, gameBoard);
-
+			case "u": // allows player to upgrade owned properties
+				if (upgrade(currentPlayers, loop, gameBoard) == false) {
+					roll = (rollDice());
+					movePosition(roll, currentPlayers, loop, gameBoard);
+				}
+				break;
+			case "p": // views the portfolio of the player
+				printPortfolio(currentPlayers, loop, gameBoard);
 				roll = (rollDice());
 				movePosition(roll, currentPlayers, loop, gameBoard);
-
 				break;
 			case "q": // quits the game
 				quitGame(currentPlayers, loop);
@@ -133,7 +130,7 @@ public class PlayGame {
 
 			default:
 
-				System.out.println("Please enter X or Y to continue...");
+				System.out.println("Please enter X, U, P or Q to continue...");
 				while (input.hasNextLine()) {
 					inputStr = input.nextLine();
 					roll = (rollDice());
@@ -150,9 +147,8 @@ public class PlayGame {
 				break;
 			}
 
-			System.out.println("End of Round! Press Enter to continue!");
-
 		}
+		System.out.println("End of Round! Press Enter to continue!");
 		input.nextLine();
 	}
 
@@ -162,9 +158,9 @@ public class PlayGame {
 	 * @param currentPlayers
 	 * @param currentPlayer
 	 */
-	public static void upgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
-
-		System.out.println("Now displaying upgrades available:\n\n");
+	public static boolean upgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
+		boolean canUpgrade = false;
+		System.out.println("Now displaying upgrades available:");
 
 		int currentPlayersId = currentPlayers.get(currentPlayer).getPlayerId();
 
@@ -174,41 +170,65 @@ public class PlayGame {
 		boolean check3 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 3);
 		boolean check4 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 4);
 
-		// If at least one of the fields is owned it will allow the player to upgrade a
-		// field
-
+		/*
+		 * If at least one of the fields is owned it will allow the player to upgrade a
+		 * field The initial if statement checks if the player owns all properties
+		 * within a specified field, the inner if statements then check if the player
+		 * owns specific fields and prints out the property details if so (thus allowing
+		 * them to purchase the property upgrades)
+		 */
 		if (check1 == true || check2 == true || check3 == true || check4 == true) {
-
-			// prints out the fields the areas they can upgrades
-
-			CheckOwnershipUtility.returnOwned(gameBoard, currentPlayers.get(currentPlayer).getPlayerId());
-
-			System.out.println("Which area would you like to upgrade? Enter number");
-
-			int playerInputUpgrade;
-			playerInputUpgrade = input.nextInt();
-			int currentPlayerId = currentPlayers.get(currentPlayer).getPlayerId();
-
-			if (gameBoard.get(playerInputUpgrade).getOwnerId() == currentPlayerId
-					&& gameBoard.get(playerInputUpgrade).getMajorUpgrades() != 1)
-
-			{
-				if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < 3) {
-
-					gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayer));
-				}
-
-				else {
-
-					gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayer));
-				}
-
+			// prints out all field 1 properties if the player owns all areas
+			if (check1 == true) {
+				CheckOwnershipUtility.returnOwnedByField(gameBoard, currentPlayers.get(currentPlayer).getPlayerId(), 1);
+				canUpgrade = true;
 			}
+
+			// prints out all field 2 properties if the player owns all areas
+			if (check2 == true) {
+				CheckOwnershipUtility.returnOwnedByField(gameBoard, currentPlayers.get(currentPlayer).getPlayerId(), 2);
+				canUpgrade = true;
+			}
+
+			// prints out all field 3 properties if the player owns all areas
+			if (check3 == true) {
+				CheckOwnershipUtility.returnOwnedByField(gameBoard, currentPlayers.get(currentPlayer).getPlayerId(), 3);
+				canUpgrade = true;
+			}
+
+			// prints out all field 4 properties if the player owns all areas
+			if (check4 == true) {
+				CheckOwnershipUtility.returnOwnedByField(gameBoard, currentPlayers.get(currentPlayer).getPlayerId(), 4);
+				canUpgrade = true;
+			}
+			// calls addUpgrade method to allow the user to purchase upgrades
+			addUpgrade(currentPlayers, currentPlayersId, gameBoard);
+			// if no fields are owned, displays message to user
 		} else {
 			System.out.println("Sorry you have no upgrades available!\n");
 		}
 
-		// input.hasNextLine();
+		return canUpgrade;
+
+	}
+
+	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
+
+		System.out.println("Which area would you like to upgrade? Enter number.");
+
+		int playerInputUpgrade;
+		playerInputUpgrade = input.nextInt();
+		int currentPlayerId = currentPlayer;
+
+		if (gameBoard.get(playerInputUpgrade).getOwnerId() == currentPlayerId
+				&& gameBoard.get(playerInputUpgrade).getMajorUpgrades() != 1) {
+			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < 3) {
+				gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayer));
+			} else {
+				gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayer));
+			}
+
+		}
 
 	}
 
@@ -237,8 +257,8 @@ public class PlayGame {
 		 */
 		if (newPosition > 11) {
 			newPosition -= 11;
-			currentPlayers.get(currentPlayer).gainMoney(200);
-			System.out.println("You have passed Start and gained 200 EcoCoins!");
+			currentPlayers.get(currentPlayer).gainMoney(75);
+			System.out.println("You have passed Start and gained 75 EcoCoins!");
 			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);
 		} else {
 			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);
@@ -296,10 +316,32 @@ public class PlayGame {
 		Random diceRoll = new Random();
 		for (int i = 0; i < numberOfDice; i++) {
 			int roll = diceRoll.nextInt(6) + 1;
-			System.out.println("\nRoll for dice " + i + ": " + roll);
+			System.out.println("Roll for dice " + (i + 1) + ": " + roll);
 			totalRoll += roll;
 		}
 		return totalRoll;
+	}
+
+	/**
+	 * prints the players stats, owned properties and how upgraded they are
+	 * 
+	 * @param currentPlayers
+	 * @param loop
+	 * @param gameBoard
+	 */
+	private static void printPortfolio(ArrayList<Player> currentPlayers, int loop, ArrayList<AreaBoard> gameBoard) {
+		Player player = currentPlayers.get(loop);
+		System.out.println("Player: " + player.getPlayerName() + ", Money: " + player.getMoney());
+		System.out.println("Owned property");
+		for (AreaBoard areaBoard : gameBoard) {
+			if (areaBoard.getOwnerId() == player.getPlayerId()) {
+				System.out.println("\nProperty name: " + areaBoard.getSpaceName());
+				System.out.println("Minor upgrades: " + areaBoard.getMinorUpgrades());
+				System.out.println("Major upgrades: " + areaBoard.getMajorUpgrades() + "\n");
+
+			}
+		}
+
 	}
 
 	/**
@@ -309,7 +351,7 @@ public class PlayGame {
 	 * @param currentPlayerIndex - int
 	 */
 	private static void quitGame(ArrayList<Player> currentPlayers, int currentPlayerIndex) {
-		System.out.println("Are you sure you want to quit? Y to quit or N to cancel.");
+		System.out.println("Are you sure you want to quit? Y to quit or N to cancel");
 		String answer = input.next();
 		String loser = currentPlayers.get(currentPlayerIndex).getPlayerName();
 		if (answer.equalsIgnoreCase("y")) {
@@ -340,4 +382,4 @@ public class PlayGame {
 		continueGame = false;
 
 	}
-} // end of class
+}

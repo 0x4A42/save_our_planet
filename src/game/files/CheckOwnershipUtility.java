@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @author v4 - Catherine (rewrite and rename doesPlayerOwnField, extracted
  *         charge values to constants, charge can not take player to negative
  *         money)
+ * @author v4.1 Jordan (added new method to search by field ID)
  *
  */
 public class CheckOwnershipUtility {
@@ -45,6 +46,12 @@ public class CheckOwnershipUtility {
 		return playerOwnsAll;
 	}
 
+	/**
+	 * Returns all property owned by the player.
+	 * 
+	 * @param theBoard, an ArrayList containing the current board of the game
+	 * @param ownerId,  the Id of the owner to search by
+	 */
 	public static void returnOwned(ArrayList<AreaBoard> theBoard, int ownerId) {
 		// ArrayList<AreaBoard> results = new ArrayList<AreaBoard>();
 
@@ -57,6 +64,26 @@ public class CheckOwnershipUtility {
 			}
 
 		}
+	}
+
+	/**
+	 * Prints out the property squares within a specified field, passed as a
+	 * parameter, by a specific owner, also passed as a parameter
+	 * 
+	 * @param theBoard, an ArrayList containing the current board of the game
+	 * @param ownerId,  the Id of the owner to search by
+	 * @param field,    the field of the property to search by
+	 */
+	public static void returnOwnedByField(ArrayList<AreaBoard> theBoard, int ownerId, int field) {
+
+		for (int loopIn = 0; loopIn < theBoard.size(); loopIn++) {
+
+			if (theBoard.get(loopIn).getFieldId() == field && theBoard.get(loopIn).getOwnerId() == ownerId) {
+				System.out.println(loopIn + " : " + theBoard.get(loopIn).getSpaceName());
+			}
+
+		}
+
 	}
 
 	/**

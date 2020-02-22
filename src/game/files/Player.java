@@ -19,7 +19,7 @@ public class Player {
 	private final int UPPER_NAME_LIMIT = 15;
 	private int playerId;
 	private String playerName;
-	private double money;
+	private int money;
 	private int boardPosition = 0; // default to 0 to represent start position
 
 	public Player() {
@@ -34,7 +34,7 @@ public class Player {
 	 * @param boardPosition, the position of the player on the board (must be
 	 *                       between 0 - 11, defaults to 0)
 	 */
-	public Player(int playerId, String playerName, double money, int boardPosition) {
+	public Player(int playerId, String playerName, int money, int boardPosition) {
 		this.setPlayerId(playerId);
 		this.setPlayerName(playerName);
 		this.setMoney(money);
@@ -72,7 +72,7 @@ public class Player {
 	 * 
 	 * @return the amount of money the player has
 	 */
-	public double getMoney() {
+	public int getMoney() {
 		return money;
 	}
 
@@ -83,7 +83,7 @@ public class Player {
 	 * @throws IllegalArgumentException, when value entered is <0
 	 */
 
-	public void setMoney(double money) throws IllegalArgumentException {
+	public void setMoney(int money) throws IllegalArgumentException {
 		if (money >= LOWER_MONEY_LIMIT) {
 			this.money = money;
 		} else {

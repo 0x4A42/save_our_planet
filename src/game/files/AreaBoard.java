@@ -29,7 +29,6 @@ public class AreaBoard extends FieldBoard implements IBought {
 	private int cost;
 	private boolean owned;
 	private int ownerId;
-
 	private int minorUpgrades = 0; // default to 0 as not owned, therefore cannot have upgrades
 	private int majorUpgrades = 0; // default to 0 as not owned, therefore cannot have upgrades
 
@@ -195,7 +194,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			minorUpgrades++;
 			p.removeMoney(20);
 
-			System.out.println("You have upgraded");
+			System.out.println("Congratulations! You have upgraded the selected property.");
 		}
 	}
 
