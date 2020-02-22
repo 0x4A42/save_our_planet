@@ -7,7 +7,7 @@ import java.util.Scanner;
  * This class sets up the board for the game.
  * 
  * @author v1.0 Jordan
- * @author v2.0 - 2.2 Bekah, Cathrine, Ricards (Refactored code, fixed issue
+ * @author v2.0 - 2.2 Bekah, Catherine, Ricards (Refactored code, fixed issue
  *         with scanners)
  * @author v2.3 - Jordan (updating of documentation)
  *
@@ -31,7 +31,7 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the amount of Eco Warriors playing!");
+			System.out.println("Please enter the amount of Eco Warriors playing.");
 
 			amountOfPlayers = input.nextInt();
 			input.nextLine();
@@ -62,7 +62,7 @@ public class BoardSetUp {
 		for (int loop = 0; loop < amountOfPlayers; loop++) {
 
 			// System.out.println("Please enter the Eco Warrior's name.");
-			System.out.println("Enter name");
+			System.out.println("Please enter player name.");
 			Player player = new Player();
 
 			String playerName = input.nextLine();

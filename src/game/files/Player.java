@@ -6,6 +6,8 @@ package game.files;
  * 
  * @author v1.0 Jordan (Set up initial class)
  * @author v2.3 - Jordan, updating of documentation and validation
+ * @author v4 - Catherine (remove money can't take more than a players total
+ *         money, it returns the amount taken)
  *
  */
 public class Player {
@@ -111,7 +113,7 @@ public class Player {
 			this.boardPosition = boardPosition;
 		} else {
 			throw new IllegalArgumentException(
-					"Board position must be between 0 - 11 (inclusive). You have entered " + boardPosition +".");
+					"Board position must be between 0 - 11 (inclusive). You have entered " + boardPosition + ".");
 		}
 	}
 
@@ -134,8 +136,34 @@ public class Player {
 			this.playerId = playerId;
 		} else {
 			throw new IllegalArgumentException(
-					"Player ID must be between 1 - 4 (inclusive). You have entered: " + playerId +".");
+					"Player ID must be between 1 - 4 (inclusive). You have entered: " + playerId + ".");
 		}
+	}
+
+	/**
+	 * Removes Money
+	 * 
+	 * @param cost
+	 */
+
+	public int removeMoney(int cost) {
+		if (cost > money) {
+			System.out.println("you pay all remaining money");
+			money = 0;
+			return (int) money;
+		} else {
+			money -= cost;
+			return cost;
+		}
+	}
+
+	/**
+	 * Adds Money
+	 * 
+	 * @param cost
+	 */
+	public void gainMoney(int cost) {
+		money += cost;
 	}
 
 }

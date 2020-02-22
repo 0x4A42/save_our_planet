@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 class PlayerTesting {
 
-	// test data
 	int validPlayerIdLowerBoundary, validPlayerIdUpperBoundary, validPlayerIdLower, validPlayerIdUpper;
 	int invalidPlayerIdLower, invalidPlayerIdUpper;
 	String validPlayerNameLowerBoundary, validPlayerNameUpperBoundary, validPlayerNameLower, validPlayerNameUpper;

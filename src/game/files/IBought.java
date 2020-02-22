@@ -1,5 +1,7 @@
 package game.files;
 
+import java.util.ArrayList;
+
 /**
  * This interface, when implemented, will contain a method that will determine
  * if a property has been bought or not.
@@ -10,5 +12,5 @@ package game.files;
  */
 public interface IBought {
 
-	public void bought(int playerId);
+	public void bought(int currentPlayer, ArrayList<Player> playerArray);
 }

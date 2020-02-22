@@ -1,16 +1,23 @@
 package game.files;
 
+import java.util.ArrayList;
+
 /**
  * This class represents 'squares' on the board, which players will 'land on' to
  * do various activities such as purchasing or upgrading or passing the start to
  * collect resources.
  * 
  * @author v1.0 Jordan (Set up initial class)
- * @author v2.0 - 2.2 Bekah, Cathrine, Ricards (Refactored & updated code)
+ * @author v2.0 - 2.2 Bekah, Catherine, Ricards (Refactored & updated code)
  * @author v2.3 - Jordan (updating of documentation)
+ * @author v4 - Catherine (buyMinorUpgrade/buyMajorUpgrade use
+ *         removeMoney/gainMoney functions rather than directly setting money)
  */
 
 public class AreaBoard extends FieldBoard implements IBought {
+
+	// private final int LOWER_MINOR_UPGRADE_LIMIT = 0;
+	// private final int UPPER_MINOR_UPGRADE_LIMIT = 3;
 
 	private final int LOWER_PLAYER_ID = 1;
 	private final int UPPER_PLAYER_ID = 4;
@@ -22,6 +29,9 @@ public class AreaBoard extends FieldBoard implements IBought {
 	private int cost;
 	private boolean owned;
 	private int ownerId;
+
+	private int minorUpgrades = 0; // default to 0 as not owned, therefore cannot have upgrades
+	private int majorUpgrades = 0; // default to 0 as not owned, therefore cannot have upgrades
 
 	/**
 	 * Default constructor
@@ -114,13 +124,24 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 * ownable, and secondly that it has not been purchased by another player. Then
 	 * sets the owner to the player who purchased it.
 	 */
-	public void bought(int playerId) {
+
+	@Override
+	public void bought(int currentPlayer, ArrayList<Player> playerArray) {
+
 		if (isOwnable() && owned == false) {
-			owned = true;
-			setOwnerId(playerId);
+
+			if (playerArray.get(currentPlayer).getMoney() > cost) {
+				owned = true;
+				setOwnerId(playerArray.get(currentPlayer).getPlayerId());
+				playerArray.get(currentPlayer).removeMoney(cost);
+
+				System.out.println("You have bought: " + getSpaceName() + " for " + cost);
+				System.out.println("You now have " + playerArray.get(currentPlayer).getMoney());
+
+			}
 		}
 
-	} 
+	}
 
 	/**
 	 * 
@@ -145,4 +166,51 @@ public class AreaBoard extends FieldBoard implements IBought {
 		}
 
 	}
+
+	/**
+	 * 
+	 * @return the amount of minor upgrades a property has
+	 */
+	public int getMinorUpgrades() {
+		return minorUpgrades;
+	}
+
+	/**
+	 * 
+	 * @return the amount of major upgrades a property has
+	 */
+	public int getMajorUpgrades() {
+		return majorUpgrades;
+	}
+
+	/**
+	 * Allows the player to buy minor upgrades
+	 * 
+	 * @param p (input player object)
+	 */
+	public void buyMinorUpgrade(Player p) {
+
+		if (minorUpgrades <= 3 && p.getMoney() >= 20) {
+
+			minorUpgrades++;
+			p.removeMoney(20);
+
+			System.out.println("You have upgraded");
+		}
+	}
+
+	/**
+	 * Allows the player to buy a major upgrade
+	 * 
+	 * @param p (input player object)
+	 */
+	public void buyMajorUpgrade(Player p) {
+		if (minorUpgrades == 3 && majorUpgrades < 1 & p.getMoney() >= 50) {
+
+			majorUpgrades++;
+			p.removeMoney(50);
+			System.out.println("You have upgraded");
+		}
+	}
+
 }

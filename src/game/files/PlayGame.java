@@ -8,19 +8,29 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * This class will be where the board game is played. 
+ * This class will be where the board game is played.
+ * 
  * @author v1.0 Bekah, Ricards (Set up initial class and methods)
- * @author v1.1 Bekah, Cathrine, Jordan, Ricards (Scanner issues repaired &
+ * @author v1.1 Bekah, Catherine, Jordan, Ricards (Scanner issues repaired &
  *         Refactored) this is the main class the game is played from it keeps
  *         calling the playerTurn method until a player leaves then game then
  *         proceeds to the endGame method
+ * @author v3 Bekah, Ricards (Movement, buy/pay rent, & upgrade systems
+ *         implemented)
+ * @author v4 Catherine (quit and winning conditions, end game implemented,
+ *         continueGame made into static instance variable, rollDice rewrite to
+ *         loop for numberOfDice, numberOfDice made into constant)
+ * @author v4.1 Jordan (bug fixes, some additional documentation and rewording
+ *         of prompts to user)
  *
  */
 public class PlayGame {
 
 	// Scanner that is used by all methods in game
 	public static Scanner input = new Scanner(System.in);
- 
+	public static boolean continueGame = true;
+	private static final int numberOfDice = 2;
+
 	/**
 	 * default constructor
 	 */
@@ -29,8 +39,6 @@ public class PlayGame {
 	}
 
 	public static void main(String[] args) {
-
-		boolean continueGame = true;
 
 		// set up
 
@@ -46,6 +54,12 @@ public class PlayGame {
 		// Tests to see if Objects are working (To be removed later)
 		gameBoard = BoardSetUp.setUpBoard(gameBoard);
 
+		gameBoard.get(1).setOwnerId(1);
+		gameBoard.get(2).setOwnerId(1);
+
+		System.out.println(gameBoard.get(1).getOwnerId());
+		System.out.println(gameBoard.get(2).getOwnerId());
+
 		System.out.println("Game board space 1: " + gameBoard.get(0).getSpaceName());
 		System.out.println("First player has id: " + currentPlayers.get(0).getPlayerId());
 
@@ -56,12 +70,9 @@ public class PlayGame {
 		// player turns continue until victory condition fulfilled
 		do {
 
-			playerTurn(currentPlayers);
+			playerTurn(currentPlayers, gameBoard);
 
 		} while (continueGame == true);
-
-		endGame();
-
 	}
 
 	/**
@@ -83,54 +94,67 @@ public class PlayGame {
 	 * 
 	 * @param currentPlayers
 	 */
-	public static void playerTurn(ArrayList<Player> currentPlayers) {
-
-		// TO DO check scanner input
+	public static void playerTurn(ArrayList<Player> currentPlayers, ArrayList<AreaBoard> gameBoard) {
 
 		String inputStr;
 
 		for (int loop = 0; loop < currentPlayers.size(); loop++) {
 
+			System.out.println(currentPlayers.get(loop).getPlayerId());
+
 			int roll;
+			inputStr = null;
 
-			System.out.println("It's now " + currentPlayers.get(loop).getPlayerName() + "'s turn!");
-			// System.out.println("You ended your last turn on " +
-			// currentPlayers.get(loop).getBoardPosition());
-			System.out.println("\nEnter X to roll the dice...");
-			System.out.println("Enter Y to view your portfolio...");
+			System.out.println("\nIt's now " + currentPlayers.get(loop).getPlayerName() + "'s turn!");
+			System.out.println("You currently have " + currentPlayers.get(loop).getMoney() + " EcoCoins!");
 
+			System.out.println("\nEnter X to roll the dice.");
+			System.out.println("Enter Y to view and upgrade your owned properties.");
+			System.out.println("Enter Q to quit.");
+			// input.nextLine();
 			inputStr = input.nextLine();
 
 			switch (inputStr.toLowerCase()) {
 
 			case "x": // roll
 				roll = (rollDice());
-				movePosition(roll, currentPlayers, loop);
+				movePosition(roll, currentPlayers, loop, gameBoard);
 				break;
 			case "y": // view portfolio
-				playerPortfolio(currentPlayers, loop);
+				upgrade(currentPlayers, loop, gameBoard);
+
+				roll = (rollDice());
+				movePosition(roll, currentPlayers, loop, gameBoard);
+
 				break;
+			case "q": // quits the game
+				quitGame(currentPlayers, loop);
+				break;
+
 			default:
+
 				System.out.println("Please enter X or Y to continue...");
 				while (input.hasNextLine()) {
 					inputStr = input.nextLine();
+					roll = (rollDice());
+					movePosition(roll, currentPlayers, loop, gameBoard);
+
+					break;
 				}
 				// does this return to top of switch?
 			}
+			if (currentPlayers.get(loop).getMoney() <= 0) {
+				endGame(currentPlayers, currentPlayers.get(loop).getPlayerName());
+			}
+			if (!continueGame) {
+				break;
+			}
 
-			System.out.println("End of Round!");
+			System.out.println("End of Round! Press Enter to continue!");
 
 		}
-		// sc.close();
+		input.nextLine();
 	}
-
-	// display player status
-	// money, portfolio, where you are now
-
-	// roll dice
-
-	// move to new square
-	// upgrade or play rent
 
 	/**
 	 * view player's portfolio money + properties then return to menu
@@ -138,16 +162,54 @@ public class PlayGame {
 	 * @param currentPlayers
 	 * @param currentPlayer
 	 */
-	public static void playerPortfolio(ArrayList<Player> currentPlayers, int currentPlayer) {
-		Scanner sc = new Scanner(System.in);
+	public static void upgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
 
-		// ADD total number of properties/list of properties
+		System.out.println("Now displaying upgrades available:\n\n");
 
-		System.out.println("Now displaying +" + currentPlayers.get(currentPlayer).getPlayerName() + "'s portfolio.");
-		System.out.println("You are currently on " + currentPlayers.get(currentPlayer).getBoardPosition() + ".");
-		System.out.println("You currently have " + currentPlayers.get(currentPlayer).getMoney() + " EcoCoins.");
+		int currentPlayersId = currentPlayers.get(currentPlayer).getPlayerId();
 
-		sc.close();
+		// Temporary storage to check if a player owns any of the fields
+		boolean check1 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 1);
+		boolean check2 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 2);
+		boolean check3 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 3);
+		boolean check4 = CheckOwnershipUtility.doesPlayerOwnField(gameBoard, currentPlayersId, 4);
+
+		// If at least one of the fields is owned it will allow the player to upgrade a
+		// field
+
+		if (check1 == true || check2 == true || check3 == true || check4 == true) {
+
+			// prints out the fields the areas they can upgrades
+
+			CheckOwnershipUtility.returnOwned(gameBoard, currentPlayers.get(currentPlayer).getPlayerId());
+
+			System.out.println("Which area would you like to upgrade? Enter number");
+
+			int playerInputUpgrade;
+			playerInputUpgrade = input.nextInt();
+			int currentPlayerId = currentPlayers.get(currentPlayer).getPlayerId();
+
+			if (gameBoard.get(playerInputUpgrade).getOwnerId() == currentPlayerId
+					&& gameBoard.get(playerInputUpgrade).getMajorUpgrades() != 1)
+
+			{
+				if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < 3) {
+
+					gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayer));
+				}
+
+				else {
+
+					gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayer));
+				}
+
+			}
+		} else {
+			System.out.println("Sorry you have no upgrades available!\n");
+		}
+
+		// input.hasNextLine();
+
 	}
 
 	/**
@@ -160,57 +222,122 @@ public class PlayGame {
 	 * @param currentPlayer
 	 * @return
 	 */
-	public static int movePosition(int roll, ArrayList<Player> currentPlayers, int currentPlayer) {
+	public static int movePosition(int roll, ArrayList<Player> currentPlayers, int currentPlayer,
+			ArrayList<AreaBoard> gameBoard) {
 
 		System.out.println("You move a total of " + roll + " spaces!");
 
-		// old position
 		int oldPos = currentPlayers.get(currentPlayer).getBoardPosition();
 
-		// adds roll to old position, calculates new position
-
 		int newPosition = (roll + oldPos);
+		/*
+		 * This if else statement checks if the roll will place the player on a position
+		 * greater than the length of the current board. If so, removes 11 from the
+		 * position to ensure it is still within the range.
+		 */
+		if (newPosition > 11) {
+			newPosition -= 11;
+			currentPlayers.get(currentPlayer).gainMoney(200);
+			System.out.println("You have passed Start and gained 200 EcoCoins!");
+			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);
+		} else {
+			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);
+		}
 
-		// passed go?
-		// if (newPosition > oldPos) {
-		// newPosition=(newPosition - old position);
-		// System.out.println("You passed go!");
-		// add money
-		//
+		String currentBoardPosition = gameBoard.get(newPosition).getSpaceName();
 
-		// return new position
+		System.out.println("\n" + currentPlayers.get(currentPlayer).getPlayerName() + " is now on square " + newPosition
+				+ ": " + currentBoardPosition + "!");
+
+		if (gameBoard.get(newPosition).isOwnable() && !gameBoard.get(newPosition).isOwned()) {
+
+			System.out.println(currentBoardPosition + " is not owned by anyone. Would you like to purchase it for "
+					+ gameBoard.get(newPosition).getCost() + "?");
+
+			System.out.println("Enter X to purchase, else enter Y...");
+			// input.nextLine();
+			String choice = input.nextLine();
+
+			switch (choice.toLowerCase()) {
+			case "x":
+				gameBoard.get(newPosition).bought(currentPlayer, currentPlayers);
+				break;
+			case "y":
+				break;
+			default:
+			}
+
+		} else if (gameBoard.get(newPosition).isOwnable()
+				&& gameBoard.get(newPosition).getOwnerId() != currentPlayers.get(currentPlayer).getPlayerId()) {
+			System.out.println(currentBoardPosition + " is owned by " + gameBoard.get(newPosition).getOwnerId() + ".");
+
+			CheckOwnershipUtility.chargePlayer(gameBoard, currentPlayers, currentPlayer);
+
+		} else if (gameBoard.get(newPosition).isOwnable()
+				&& gameBoard.get(newPosition).getOwnerId() == currentPlayers.get(currentPlayer).getPlayerId()) {
+
+			System.out.println(currentBoardPosition + " is owned by you!");
+		}
+
+		else {
+			System.out.println("Feel free to rest here for a while!");
+		}
+
 		return newPosition;
 	}
 
 	/**
-	 * this method handles the dice roll 2 dice are rolled, if they are both the
-	 * same then roll again
+	 * method that rolls the number of dice and returns total result
 	 * 
+	 * @return totalRoll the total roll result
 	 */
 	public static int rollDice() {
-
 		int totalRoll = 0;
-		int roll1, roll2, roll3, roll4;
 		Random diceRoll = new Random();
-
-		roll1 = diceRoll.nextInt(6) + 1;
-		System.out.println("Roll for dice 1: " + roll1);
-		totalRoll += roll1;
-		roll2 = diceRoll.nextInt(6) + 1;
-		System.out.println("Roll for dice 2: " + roll2);
-		totalRoll += roll2;
-
-		// System.out.println("You move a total of " + totalRoll + " spaces!");
-
+		for (int i = 0; i < numberOfDice; i++) {
+			int roll = diceRoll.nextInt(6) + 1;
+			System.out.println("\nRoll for dice " + i + ": " + roll);
+			totalRoll += roll;
+		}
 		return totalRoll;
 	}
 
 	/**
-	 * this method represents the end of the game
+	 * this method called when player quits the game and ends the game
+	 * 
+	 * @param currentPlayers     - ArrayList<player>
+	 * @param currentPlayerIndex - int
 	 */
-	public static void endGame() {
-
-		System.out.println("End of game!");
+	private static void quitGame(ArrayList<Player> currentPlayers, int currentPlayerIndex) {
+		System.out.println("Are you sure you want to quit? Y to quit or N to cancel.");
+		String answer = input.next();
+		String loser = currentPlayers.get(currentPlayerIndex).getPlayerName();
+		if (answer.equalsIgnoreCase("y")) {
+			endGame(currentPlayers, loser);
+		}
 
 	}
-}
+
+	/**
+	 * method called when a player quits or runs out of money, it ends the game
+	 * 
+	 * @param currentPlayers - ArrayList<player>
+	 * @param loser          - string
+	 */
+	private static void endGame(ArrayList<Player> currentPlayers, String loser) {
+		double maxMoney = 0;
+		String winner = "";
+		System.out.println("\nPlayer " + loser + " has lost - game over!");
+		System.out.println("Final money of all players is: ");
+		for (Player player : currentPlayers) {
+			System.out.println(player.getPlayerName() + " : " + player.getMoney());
+			if (player.getMoney() > maxMoney && !player.getPlayerName().equals(loser)) {
+				maxMoney = player.getMoney();
+				winner = player.getPlayerName();
+			}
+		}
+		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney);
+		continueGame = false;
+
+	}
+} // end of class
