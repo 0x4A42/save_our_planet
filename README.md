@@ -36,11 +36,11 @@ Rebekah Logan (40059637), Catherine McGuckin (40105486). This README was created
  * When a player is prompted to take their turn, they will have four options. 
 	 - If a player selects X, you will take your turn as normal. 
 	 - If a player selects U, the game will check if the player owns all areas within a field. 
-		-- If the player does, they will be prompted to select which property to upgrade (if they own 3 minor upgrades, they will then be able to purchase a major upgrade). 
-		-- If the player cannot purchase an upgrade, you will roll as normal. 
+		- If the player does, they will be prompted to select which property to upgrade (if they own 3 minor upgrades, they will then be able to purchase a major upgrade). 
+		- If the player cannot purchase an upgrade, you will roll as normal. 
 	- If a player selects U, they will be shown a list of their current properties and their respective upgrades. 
 	- If a player selects Q, they will attempt to exit the game. 
-		-- Upon pressing Y, the game will end and the winner (which cannot be the player who triggers the end the game through the menu selection) will be determined. 
-		-- If the player selects N, the game will continue as normal.
+		- Upon pressing Y, the game will end and the winner (which cannot be the player who triggers the end the game through the menu selection) will be determined. 
+		- If the player selects N, the game will continue as normal.
 
  * The game ends when either a player selects Q from the menu selection or when one player runs out of money. 

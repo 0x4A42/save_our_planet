@@ -27,9 +27,9 @@ import java.util.Scanner;
  *         made into constant)
  * @author v4.1 Jordan (bug fixes, some additional documentation and rewording
  *         of prompts to user. Fixed the upgrade system.) Catherine (view
- *         portfolio function). v4.2 Jordan (further validation of at least 2
- *         players to avoid Array error if a single player is playing and
- *         attempts to upgrade property)
+ *         portfolio function).
+ * @author v4.2 Jordan (further validation of at least 2 players to avoid Array
+ *         error if a single player is playing and attempts to upgrade property)
  * 
  */
 public class PlayGame {

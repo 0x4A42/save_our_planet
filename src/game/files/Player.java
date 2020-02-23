@@ -21,7 +21,7 @@ public class Player {
 	private final int LOWER_NAME_LIMIT = 1;
 	private final int UPPER_NAME_LIMIT = 15;
 	private final int LOWER_BOARD_POSITION_LIMIT = 0;
-	private final int UPPER_BOARD_POSITION_LIMIT = 0;
+	private final int UPPER_BOARD_POSITION_LIMIT = 11;
 	private int playerId;
 	private String playerName;
 	private int money;
