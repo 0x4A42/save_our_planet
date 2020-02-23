@@ -8,7 +8,7 @@
 
 
 Welcome to the Save Our Planet README for CSC7053-1920-G2, created by Jordan Brown (40282125), Ricards Estemirovs (40126945),
- * Rebekah Logan (40059637), Catherine McGuckin (40105486). This README was created by Jordan Brown (40282125).
+Rebekah Logan (40059637), Catherine McGuckin (40105486). This README was created by Jordan Brown (40282125).
 
 -- About the Game --
 
