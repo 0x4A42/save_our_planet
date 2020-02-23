@@ -3,6 +3,8 @@ package game.files;
 import java.util.ArrayList;
 
 /**
+ * CSC7053-1920-G2: Jordan Brown (40282125), Ricards Estemirovs (40126945),
+ * Rebekah Logan (40059637), Catherine McGuckin (40105486)
  * 
  * This class contains methods which will check if a player owns all relevant
  * properties within a field on the board, thus allowing them to upgrade the
@@ -15,7 +17,8 @@ import java.util.ArrayList;
  * @author v4 - Catherine (rewrite and rename doesPlayerOwnField, extracted
  *         charge values to constants, charge can not take player to negative
  *         money)
- * @author v4.1 Jordan (added new method to search by field ID)
+ * @author v4.1 Jordan (added new method to search by field ID for the upgrade
+ *         functionality)
  *
  */
 public class CheckOwnershipUtility {
@@ -47,7 +50,7 @@ public class CheckOwnershipUtility {
 	}
 
 	/**
-	 * Returns all property owned by the player.
+	 * Prints to screen all property owned by the player.
 	 * 
 	 * @param theBoard, an ArrayList containing the current board of the game
 	 * @param ownerId,  the Id of the owner to search by
@@ -67,8 +70,8 @@ public class CheckOwnershipUtility {
 	}
 
 	/**
-	 * Prints out the property squares within a specified field, passed as a
-	 * parameter, by a specific owner, also passed as a parameter
+	 * Prints to screen all the property owned by a player, passed as a parameter,
+	 * within a specified field, also passed as a parameter.
 	 * 
 	 * @param theBoard, an ArrayList containing the current board of the game
 	 * @param ownerId,  the Id of the owner to search by
@@ -87,8 +90,8 @@ public class CheckOwnershipUtility {
 	}
 
 	/**
-	 * A method that calculates the charge for landing on an owned property thats
-	 * not yours
+	 * A method that calculates the charge for landing on a property owned by
+	 * another player
 	 * 
 	 * @param theBoard      Input the board game ArrayList
 	 * @param player        Input the player ArrayList

@@ -1,6 +1,9 @@
 package game.files;
 
 /**
+ * CSC7053-1920-G2: Jordan Brown (40282125), Ricards Estemirovs (40126945),
+ * Rebekah Logan (40059637), Catherine McGuckin (40105486) {@link Player}
+ * 
  * This class will allow a player to be set up - setting their name, id, money
  * and board position.
  * 
@@ -17,11 +20,16 @@ public class Player {
 	private final int LOWER_MONEY_LIMIT = 0;
 	private final int LOWER_NAME_LIMIT = 1;
 	private final int UPPER_NAME_LIMIT = 15;
+	private final int LOWER_BOARD_POSITION_LIMIT = 0;
+	private final int UPPER_BOARD_POSITION_LIMIT = 0;
 	private int playerId;
 	private String playerName;
 	private int money;
 	private int boardPosition = 0; // default to 0 to represent start position
 
+	/**
+	 * Default constructor
+	 */
 	public Player() {
 	}
 
@@ -109,7 +117,7 @@ public class Player {
 	 *                                   above or below the min or max values
 	 */
 	public void setBoardPosition(int boardPosition) throws IllegalArgumentException {
-		if (boardPosition >= 0 && boardPosition <= 11) {
+		if (boardPosition >= LOWER_BOARD_POSITION_LIMIT && boardPosition <= UPPER_BOARD_POSITION_LIMIT) {
 			this.boardPosition = boardPosition;
 		} else {
 			throw new IllegalArgumentException(
@@ -148,7 +156,7 @@ public class Player {
 
 	public int removeMoney(int cost) {
 		if (cost > money) {
-			System.out.println("you pay all remaining money");
+			System.out.println("You pay all of your remaining money.");
 			money = 0;
 			return (int) money;
 		} else {

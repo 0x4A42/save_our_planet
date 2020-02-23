@@ -3,22 +3,26 @@ package game.files;
 import java.util.ArrayList;
 
 /**
+ * CSC7053-1920-G2: Jordan Brown (40282125), Ricards Estemirovs (40126945),
+ * Rebekah Logan (40059637), Catherine McGuckin (40105486)
+ * 
  * This class represents 'squares' on the board, which players will 'land on' to
  * do various activities such as purchasing or upgrading or passing the start to
  * collect resources.
+ *
  * 
  * @author v1.0 Jordan (Set up initial class)
  * @author v2.0 - 2.2 Bekah, Catherine, Ricards (Refactored & updated code)
  * @author v2.3 - Jordan (updating of documentation)
  * @author v4 - Catherine (buyMinorUpgrade/buyMajorUpgrade use
  *         removeMoney/gainMoney functions rather than directly setting money)
+ * @author v4.1 Jordan (added constants to make code more readable)
  */
 
 public class AreaBoard extends FieldBoard implements IBought {
 
-	// private final int LOWER_MINOR_UPGRADE_LIMIT = 0;
-	// private final int UPPER_MINOR_UPGRADE_LIMIT = 3;
-
+	private static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
+	private final int MAJOR_UPGRADE_LIMIT = 1;
 	private final int LOWER_PLAYER_ID = 1;
 	private final int UPPER_PLAYER_ID = 4;
 	private final int LOWER_FIELD_ID = 0;
@@ -189,7 +193,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 */
 	public void buyMinorUpgrade(Player p) {
 
-		if (minorUpgrades <= 3 && p.getMoney() >= 20) {
+		if (minorUpgrades <= UPPER_MINOR_UPGRADE_LIMIT && p.getMoney() >= 20) {
 
 			minorUpgrades++;
 			p.removeMoney(20);
@@ -204,7 +208,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 * @param p (input player object)
 	 */
 	public void buyMajorUpgrade(Player p) {
-		if (minorUpgrades == 3 && majorUpgrades < 1 & p.getMoney() >= 50) {
+		if (minorUpgrades == UPPER_MINOR_UPGRADE_LIMIT && majorUpgrades < MAJOR_UPGRADE_LIMIT & p.getMoney() >= 50) {
 
 			majorUpgrades++;
 			p.removeMoney(50);

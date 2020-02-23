@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class sets up the board for the game.
+ * CSC7053-1920-G2: Jordan Brown (40282125), Ricards Estemirovs (40126945),
+ * Rebekah Logan (40059637), Catherine McGuckin (40105486)
+ * 
+ * This class sets up the state of the board for the game, including the player
+ * objects based on an input by the user.
  * 
  * @author v1.0 Jordan
  * @author v2.0 - 2.2 Bekah, Catherine, Ricards (Refactored code, fixed issue
@@ -14,6 +18,9 @@ import java.util.Scanner;
  */
 
 public class BoardSetUp {
+
+	private static final int LOWER_PLAYER_LIMIT = 2;
+	private static final int UPPER_PLAYER_LIMIT = 4;
 
 	/**
 	 * 
@@ -31,16 +38,16 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the amount of Eco Warriors playing!");
+			System.out.println("Please enter the amount of Eco Warriors playing.");
 
 			amountOfPlayers = input.nextInt();
 			input.nextLine();
 			// input.reset();
 
-			if (amountOfPlayers >= 1 && amountOfPlayers <= 4) {
+			if (amountOfPlayers >= LOWER_PLAYER_LIMIT && amountOfPlayers <= UPPER_PLAYER_LIMIT) {
 				validEntryNumberOfPlayers = true;
 			} else {
-				System.err.println("Sorry, please enter a number of players between 1 - 4.");
+				System.err.println("Sorry, please enter a valid number of players (2 - 4).");
 			}
 
 		}
@@ -88,14 +95,11 @@ public class BoardSetUp {
 
 		// Set up spaces
 		AreaBoard tile01 = new AreaBoard("Start", false, 0, 0);
-
 		AreaBoard tile02 = new AreaBoard("Ironbridge", true, 1, 50);
 		AreaBoard tile03 = new AreaBoard("Polaniec", true, 1, 50);
 		AreaBoard tile04 = new AreaBoard("Jiuquan", true, 2, 60);
 		AreaBoard tile05 = new AreaBoard("Capricorn Ridge", true, 2, 60);
-
-		AreaBoard tile06 = new AreaBoard("Eci-Pit Stop", false, 0, 0);
-
+		AreaBoard tile06 = new AreaBoard("Eco-Pit Stop", false, 0, 0);
 		AreaBoard tile07 = new AreaBoard("Walney", true, 2, 60);
 		AreaBoard tile08 = new AreaBoard("Desert Sunlight", true, 3, 65);
 		AreaBoard tile09 = new AreaBoard("Topaz", true, 3, 65);
@@ -116,7 +120,6 @@ public class BoardSetUp {
 		theBoard.add(tile10);
 		theBoard.add(tile11);
 		theBoard.add(tile12);
-		
 
 		// returns the ArrayList which has been populated with tiles.
 		return theBoard;

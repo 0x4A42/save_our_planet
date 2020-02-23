@@ -8,6 +8,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
+ * CSC7053-1920-G2: Jordan Brown (40282125), Ricards Estemirovs (40126945),
+ * Rebekah Logan (40059637), Catherine McGuckin (40105486)
+ * 
+ * 
  * This class will be where the board game is played.
  * 
  * @author v1.0 Bekah, Ricards (Set up initial class and methods)
@@ -22,9 +26,11 @@ import java.util.Scanner;
  *         variable, rollDice rewrite to loop for numberOfDice, numberOfDice
  *         made into constant)
  * @author v4.1 Jordan (bug fixes, some additional documentation and rewording
- *         of prompts to user) Catherine (view portfolio function).
- *
- *
+ *         of prompts to user. Fixed the upgrade system.) Catherine (view
+ *         portfolio function). v4.2 Jordan (further validation of at least 2
+ *         players to avoid Array error if a single player is playing and
+ *         attempts to upgrade property)
+ * 
  */
 public class PlayGame {
 
@@ -32,31 +38,20 @@ public class PlayGame {
 	public static Scanner input = new Scanner(System.in);
 	public static boolean continueGame = true;
 	private static final int numberOfDice = 2;
-
-	/**
-	 * default constructor
-	 */
-	public PlayGame() {
-		// TODO Auto-generated constructor stub
-	}
+	private static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
 
 	public static void main(String[] args) {
 
-		// set up
-
+		/*
+		 * Set up for the game, including creating ArrayLists to hold the board and /
+		 * player objects
+		 */
 		ArrayList<Player> currentPlayers = new ArrayList<Player>();
 		ArrayList<AreaBoard> gameBoard = new ArrayList<AreaBoard>();
-
 		int amountOfPlayers = BoardSetUp.setUpPlayers(input);
-
 		input.reset();
-
 		currentPlayers = BoardSetUp.createPlayer(input, amountOfPlayers, currentPlayers);
-
-		// Tests to see if Objects are working (To be removed later)
 		gameBoard = BoardSetUp.setUpBoard(gameBoard);
-
-		// returnStr(input);
 
 		// player turns continue until victory condition fulfilled
 		do {
@@ -67,7 +62,6 @@ public class PlayGame {
 	}
 
 	/**
-	 * 
 	 * @param input
 	 */
 	public static void returnStr(Scanner input) {
@@ -80,18 +74,19 @@ public class PlayGame {
 	}
 
 	/**
-	 * this method loops through each player in the array it contains the turn menu:
-	 * roll dice + move OR view portfolio end round & check whether to continue
+	 * This method loops through each player in the ArrayList it contains,
+	 * displaying a turn menu which will allow the player to either a) roll the dice
+	 * normally b) upgrade their existing properties if they own all within a field
+	 * c) view their portfolio of properties and d) quit the game (ending it)
 	 * 
-	 * @param currentPlayers
+	 * @param currentPlayers, an ArrayList containing the players within this game
+	 * @param gameBoard,      an ArrayList containing the board squares.
 	 */
 	public static void playerTurn(ArrayList<Player> currentPlayers, ArrayList<AreaBoard> gameBoard) {
 
 		String inputStr;
 
 		for (int loop = 0; loop < currentPlayers.size(); loop++) {
-
-			System.out.println(currentPlayers.get(loop).getPlayerId());
 
 			int roll;
 			inputStr = null;
@@ -109,25 +104,34 @@ public class PlayGame {
 			// switch statement to complete different functions based on the user's choice
 			switch (inputStr.toLowerCase()) {
 
-			case "x": // roll
+			case "x": // roll and take your turn normally
 				roll = (rollDice());
 				movePosition(roll, currentPlayers, loop, gameBoard);
 				break;
-			case "u": // allows player to upgrade owned properties
+
+			/*
+			 * Calls the upgrade method to determine if the player has all properties within
+			 * a field. If so, they can upgrade and this takes up their turn. If not, they
+			 * roll normally.
+			 */
+			case "u":
 				if (upgrade(currentPlayers, loop, gameBoard) == false) {
 					roll = (rollDice());
 					movePosition(roll, currentPlayers, loop, gameBoard);
 				}
 				break;
+
 			case "p": // views the portfolio of the player
 				printPortfolio(currentPlayers, loop, gameBoard);
 				roll = (rollDice());
 				movePosition(roll, currentPlayers, loop, gameBoard);
 				break;
+
 			case "q": // quits the game
 				quitGame(currentPlayers, loop);
 				break;
 
+			// if the user does not enter X, U, P or Q, prompt them until they do so.
 			default:
 
 				System.out.println("Please enter X, U, P or Q to continue...");
@@ -138,25 +142,37 @@ public class PlayGame {
 
 					break;
 				}
-				// does this return to top of switch?
-			}
+
+			}// end of switch
+
+			// if a player has 0 EcoCoins left, ends the game.
 			if (currentPlayers.get(loop).getMoney() <= 0) {
 				endGame(currentPlayers, currentPlayers.get(loop).getPlayerName());
 			}
+
+			/*
+			 * if game should end, either through no money or selecting quit, breaks out of
+			 * loop.
+			 */
 			if (!continueGame) {
 				break;
 			}
 
-		}
+		} // end of for loop
 		System.out.println("End of Round! Press Enter to continue!");
 		input.nextLine();
 	}
 
 	/**
-	 * view player's portfolio money + properties then return to menu
+	 * This displays the player's current owned properties that they can upgrade
+	 * (provided they own all areas within a field).
 	 * 
-	 * @param currentPlayers
-	 * @param currentPlayer
+	 * @param currentPlayers, an ArrayList of players in the current game
+	 * @param currentPlayer,  the player whose turn it currently is and will make
+	 *                        upgrades
+	 * @param gameBoard,      an Arraylist of the current game board
+	 * @return a Boolean, if false it means that the player rolls in this turn, if
+	 *         true then they have completed an upgrade and will not roll.
 	 */
 	public static boolean upgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
 		boolean canUpgrade = false;
@@ -212,6 +228,15 @@ public class PlayGame {
 
 	}
 
+	/**
+	 * If the player can upgrade an area due to owning the field, this method will
+	 * handle the process.
+	 * 
+	 * @param currentPlayers, an ArrayList of players in the current game
+	 * @param currentPlayer,  the player whose turn it currently is and will make
+	 *                        upgrades
+	 * @param gameBoard,      an Arraylist of the current game board
+	 */
 	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
 
 		System.out.println("Which area would you like to upgrade? Enter number.");
@@ -219,11 +244,19 @@ public class PlayGame {
 		int playerInputUpgrade;
 		playerInputUpgrade = input.nextInt();
 		int currentPlayerId = currentPlayer;
-
+		// if the player owns the property and it does not have a major upgrade, enter
+		// the nested loop
 		if (gameBoard.get(playerInputUpgrade).getOwnerId() == currentPlayerId
 				&& gameBoard.get(playerInputUpgrade).getMajorUpgrades() != 1) {
-			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < 3) {
+			/*
+			 * If the property does not have the max amount of minor upgrades, purchase a
+			 * minor upgrade.
+			 */
+			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < UPPER_MINOR_UPGRADE_LIMIT) {
 				gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayer));
+				/*
+				 * If the max amount of minor upgrades exist, purchase a Major upgrade.
+				 */
 			} else {
 				gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayer));
 			}
@@ -240,7 +273,7 @@ public class PlayGame {
 	 * @param roll
 	 * @param currentPlayers
 	 * @param currentPlayer
-	 * @return
+	 * @return int, the player's new board position
 	 */
 	public static int movePosition(int roll, ArrayList<Player> currentPlayers, int currentPlayer,
 			ArrayList<AreaBoard> gameBoard) {
@@ -278,12 +311,20 @@ public class PlayGame {
 			// input.nextLine();
 			String choice = input.nextLine();
 
+			/*
+			 * If the user inputs X, they will buy the property they have landed on (if not
+			 * already owned). If they input Y, they do not purchase and their turns ends.
+			 */
+
 			switch (choice.toLowerCase()) {
+
 			case "x":
 				gameBoard.get(newPosition).bought(currentPlayer, currentPlayers);
 				break;
+
 			case "y":
 				break;
+
 			default:
 			}
 
@@ -309,7 +350,7 @@ public class PlayGame {
 	/**
 	 * method that rolls the number of dice and returns total result
 	 * 
-	 * @return totalRoll the total roll result
+	 * @return totalRoll, the total roll result
 	 */
 	public static int rollDice() {
 		int totalRoll = 0;
@@ -351,7 +392,7 @@ public class PlayGame {
 	 * @param currentPlayerIndex - int
 	 */
 	private static void quitGame(ArrayList<Player> currentPlayers, int currentPlayerIndex) {
-		System.out.println("Are you sure you want to quit? Y to quit or N to cancel");
+		System.out.println("Are you sure you want to quit? Press Y to quit or N to cancel.");
 		String answer = input.next();
 		String loser = currentPlayers.get(currentPlayerIndex).getPlayerName();
 		if (answer.equalsIgnoreCase("y")) {
