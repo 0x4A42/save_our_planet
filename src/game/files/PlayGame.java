@@ -62,18 +62,6 @@ public class PlayGame {
 	}
 
 	/**
-	 * @param input
-	 */
-	public static void returnStr(Scanner input) {
-		String a = "";
-		a = input.nextLine();
-
-		System.out.println(a);
-		input.reset();
-
-	}
-
-	/**
 	 * This method loops through each player in the ArrayList it contains,
 	 * displaying a turn menu which will allow the player to either a) roll the dice
 	 * normally b) upgrade their existing properties if they own all within a field
@@ -159,8 +147,10 @@ public class PlayGame {
 			}
 
 		} // end of for loop
-		System.out.println("End of Round! Press Enter to continue!");
-		input.nextLine();
+		if (continueGame) {
+			System.out.println("End of Round! Press Enter to continue!");
+			input.nextLine();
+		}
 	}
 
 	/**
@@ -237,13 +227,12 @@ public class PlayGame {
 	 *                        upgrades
 	 * @param gameBoard,      an Arraylist of the current game board
 	 */
-	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayer, ArrayList<AreaBoard> gameBoard) {
+	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayerId, ArrayList<AreaBoard> gameBoard) {
 
 		System.out.println("Which area would you like to upgrade? Enter number.");
 
 		int playerInputUpgrade;
 		playerInputUpgrade = input.nextInt();
-		int currentPlayerId = currentPlayer;
 		// if the player owns the property and it does not have a major upgrade, enter
 		// the nested loop
 		if (gameBoard.get(playerInputUpgrade).getOwnerId() == currentPlayerId
@@ -253,12 +242,12 @@ public class PlayGame {
 			 * minor upgrade.
 			 */
 			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < UPPER_MINOR_UPGRADE_LIMIT) {
-				gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayer));
+				gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayerId - 1));
 				/*
 				 * If the max amount of minor upgrades exist, purchase a Major upgrade.
 				 */
 			} else {
-				gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayer));
+				gameBoard.get(playerInputUpgrade).buyMajorUpgrade(currentPlayers.get(currentPlayerId - 1));
 			}
 
 		}
@@ -370,7 +359,7 @@ public class PlayGame {
 	 * @param loop
 	 * @param gameBoard
 	 */
-	private static void printPortfolio(ArrayList<Player> currentPlayers, int loop, ArrayList<AreaBoard> gameBoard) {
+	public static void printPortfolio(ArrayList<Player> currentPlayers, int loop, ArrayList<AreaBoard> gameBoard) {
 		Player player = currentPlayers.get(loop);
 		System.out.println("Player: " + player.getPlayerName() + ", Money: " + player.getMoney());
 		System.out.println("Owned property");
@@ -391,7 +380,7 @@ public class PlayGame {
 	 * @param currentPlayers     - ArrayList<player>
 	 * @param currentPlayerIndex - int
 	 */
-	private static void quitGame(ArrayList<Player> currentPlayers, int currentPlayerIndex) {
+	public static void quitGame(ArrayList<Player> currentPlayers, int currentPlayerIndex) {
 		System.out.println("Are you sure you want to quit? Press Y to quit or N to cancel.");
 		String answer = input.next();
 		String loser = currentPlayers.get(currentPlayerIndex).getPlayerName();
@@ -407,7 +396,7 @@ public class PlayGame {
 	 * @param currentPlayers - ArrayList<player>
 	 * @param loser          - string
 	 */
-	private static void endGame(ArrayList<Player> currentPlayers, String loser) {
+	public static void endGame(ArrayList<Player> currentPlayers, String loser) {
 		double maxMoney = 0;
 		String winner = "";
 		System.out.println("\nPlayer " + loser + " has lost - game over!");
@@ -422,5 +411,12 @@ public class PlayGame {
 		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney);
 		continueGame = false;
 
+	}
+
+	/**
+	 * @param input the input to set
+	 */
+	public static void setInput(Scanner input) {
+		PlayGame.input = input;
 	}
 }

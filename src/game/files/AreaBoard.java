@@ -193,12 +193,14 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 */
 	public void buyMinorUpgrade(Player p) {
 
-		if (minorUpgrades <= UPPER_MINOR_UPGRADE_LIMIT && p.getMoney() >= 20) {
+		if (minorUpgrades <= UPPER_MINOR_UPGRADE_LIMIT && p.getMoney() > 20) {
 
 			minorUpgrades++;
 			p.removeMoney(20);
-
+			System.out.println(p.getPlayerName() + " pays 20 to add a minor upgrade");
 			System.out.println("Congratulations! You have upgraded the selected property.");
+		} else {
+			System.out.println("you can't upgrade");
 		}
 	}
 
@@ -208,11 +210,14 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 * @param p (input player object)
 	 */
 	public void buyMajorUpgrade(Player p) {
-		if (minorUpgrades == UPPER_MINOR_UPGRADE_LIMIT && majorUpgrades < MAJOR_UPGRADE_LIMIT & p.getMoney() >= 50) {
+		if (minorUpgrades == UPPER_MINOR_UPGRADE_LIMIT && majorUpgrades < MAJOR_UPGRADE_LIMIT & p.getMoney() > 50) {
 
 			majorUpgrades++;
 			p.removeMoney(50);
+			System.out.println(p.getPlayerName() + " pays 50 to add a minor upgrade");
 			System.out.println("You have upgraded");
+		} else {
+			System.out.println("you cant upgrade");
 		}
 	}
 
