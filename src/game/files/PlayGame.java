@@ -30,6 +30,8 @@ import java.util.Scanner;
  *         portfolio function).
  * @author v4.2 Jordan (further validation of at least 2 players to avoid Array
  *         error if a single player is playing and attempts to upgrade property)
+ * @author v4.3 Catherine (fix bug in upgrade system where player n+1 would be charged
+ * 		   for an upgrade done by player n. This causes exception if last player upgrades)
  * 
  */
 public class PlayGame {

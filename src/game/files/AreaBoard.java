@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author v4 - Catherine (buyMinorUpgrade/buyMajorUpgrade use
  *         removeMoney/gainMoney functions rather than directly setting money)
  * @author v4.1 Jordan (added constants to make code more readable)
+ * @author v4.3 Catherine (add messages to make it clear what the player pays to upgrade)
  */
 
 public class AreaBoard extends FieldBoard implements IBought {
