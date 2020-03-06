@@ -11,6 +11,12 @@ import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * class that tests PlayGame class and thus all game logic such as
+ * moving, buying, landing, upgrading, quiting, losing
+ * @author Catherine
+ *
+ */
 class TestPlayGame {
 	
 	private ArrayList<AreaBoard> board;
