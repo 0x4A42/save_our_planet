@@ -16,6 +16,7 @@ import java.util.Scanner;
  * @author v2.3 - Jordan (updating of documentation)
  * @author v4.4 Jordan (ensure all instances of messages to user uses constant
  *         values where applicable, to ensure easy maintainability of code)
+ * @Author v4.5 Ricards (Applied a parseInt fix to player create to prevent game crash upon a string input)
  */
 
 public class BoardSetUp {
@@ -32,8 +33,10 @@ public class BoardSetUp {
 	 * @return an int that specifies the amount of players within the game
 	 */
 	public static int setUpPlayers(Scanner input) {
-
+		
+		String amountOfPlayerString = null;
 		int amountOfPlayers = 0;
+		
 		boolean validEntryNumberOfPlayers = false;
 
 		// prompt the user
@@ -41,17 +44,40 @@ public class BoardSetUp {
 
 			System.out.println("Please enter the amount of Eco Warriors (" +LOWER_PLAYER_LIMIT +" - "  +UPPER_PLAYER_LIMIT +") playing.");
 
-			amountOfPlayers = input.nextInt();
-			input.nextLine();
-			// input.reset();
+			
+			boolean stringIsInt = false;
+			
+			//Checks if input is a valid integer
+			while(!stringIsInt) {
+				
+				try {
+					amountOfPlayerString = input.nextLine();
+					
+					int temp = Integer.parseInt(amountOfPlayerString);
+					amountOfPlayers = temp;
+					stringIsInt = true;
+					
+				} catch(NumberFormatException e) {
+					System.out.println("Not a valid number, please try again");
+				}
+				
+			}
+		
+			
 
-			if (amountOfPlayers >= LOWER_PLAYER_LIMIT && amountOfPlayers <= UPPER_PLAYER_LIMIT) {
+			//input.nextLine();
+			// input.reset();
+			
+			if (Integer.parseInt(amountOfPlayerString) >= LOWER_PLAYER_LIMIT && Integer.parseInt(amountOfPlayerString) <= UPPER_PLAYER_LIMIT) {
 				validEntryNumberOfPlayers = true;
 			} else {
 				System.err.println("Sorry, please enter a valid number of players (" +LOWER_PLAYER_LIMIT +" - "  +UPPER_PLAYER_LIMIT +").");
 			}
 
+			amountOfPlayers = Integer.parseInt(amountOfPlayerString);
 		}
+		
+		
 		return amountOfPlayers;
 	}
 
