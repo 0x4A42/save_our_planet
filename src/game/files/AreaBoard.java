@@ -84,8 +84,8 @@ public class AreaBoard extends FieldBoard implements IBought {
 		if (fieldId >= LOWER_FIELD_ID && fieldId <= UPPER_FIELD_ID) {
 			this.fieldId = fieldId;
 		} else {
-			throw new IllegalArgumentException(
-					"Field ID must be between " +LOWER_FIELD_ID +" - " +UPPER_FIELD_ID +" (inclusive). You have entered: " + fieldId + ".");
+			throw new IllegalArgumentException("Field ID must be between " + LOWER_FIELD_ID + " - " + UPPER_FIELD_ID
+					+ " (inclusive). You have entered: " + fieldId + ".");
 		}
 
 	}
@@ -121,8 +121,8 @@ public class AreaBoard extends FieldBoard implements IBought {
 		} else if (this.fieldId == 0) {
 			this.cost = 0;
 		} else if (cost < LOWER_COST_LIMIT || cost > UPPER_COST_LIMIT && this.fieldId != 0) {
-			throw new IllegalArgumentException(
-					"Cost must be between " +LOWER_COST_LIMIT +" - " +UPPER_COST_LIMIT +" (inclusive). You have entered: " + cost + ".");
+			throw new IllegalArgumentException("Cost must be between " + LOWER_COST_LIMIT + " - " + UPPER_COST_LIMIT
+					+ " (inclusive). You have entered: " + cost + ".");
 		}
 	}
 
