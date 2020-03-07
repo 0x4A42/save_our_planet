@@ -14,7 +14,8 @@ import java.util.Scanner;
  * @author v2.0 - 2.2 Bekah, Catherine, Ricards (Refactored code, fixed issue
  *         with scanners)
  * @author v2.3 - Jordan (updating of documentation)
- *
+ * @author v4.4 Jordan (ensure all instances of messages to user uses constant
+ *         values where applicable, to ensure easy maintainability of code)
  */
 
 public class BoardSetUp {
@@ -38,7 +39,7 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the amount of Eco Warriors playing.");
+			System.out.println("Please enter the amount of Eco Warriors (" +LOWER_PLAYER_LIMIT +" - "  +UPPER_PLAYER_LIMIT +") playing.");
 
 			amountOfPlayers = input.nextInt();
 			input.nextLine();
@@ -47,7 +48,7 @@ public class BoardSetUp {
 			if (amountOfPlayers >= LOWER_PLAYER_LIMIT && amountOfPlayers <= UPPER_PLAYER_LIMIT) {
 				validEntryNumberOfPlayers = true;
 			} else {
-				System.err.println("Sorry, please enter a valid number of players (2 - 4).");
+				System.err.println("Sorry, please enter a valid number of players (" +LOWER_PLAYER_LIMIT +" - "  +UPPER_PLAYER_LIMIT +").");
 			}
 
 		}

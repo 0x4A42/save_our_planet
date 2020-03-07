@@ -30,16 +30,19 @@ import java.util.Scanner;
  *         portfolio function).
  * @author v4.2 Jordan (further validation of at least 2 players to avoid Array
  *         error if a single player is playing and attempts to upgrade property)
- * @author v4.3 Catherine (fix bug in upgrade system where player n+1 would be charged
- * 		   for an upgrade done by player n. This causes exception if last player upgrades)
- * 
+ * @author v4.3 Catherine (fix bug in upgrade system where player n+1 would be
+ *         charged for an upgrade done by player n. This causes exception if
+ *         last player upgrades)
+ * @author v4.4 Jordan (updating naming of constants to ensure they follow
+ *         convention - e.g numberOfDice to NUMBER_OF_DICE and updated any
+ *         appearance of it within code).
  */
 public class PlayGame {
 
 	// Scanner that is used by all methods in game
 	public static Scanner input = new Scanner(System.in);
 	public static boolean continueGame = true;
-	private static final int numberOfDice = 2;
+	private static final int NUMBER_OF_DICE = 2;
 	private static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
 
 	public static void main(String[] args) {
@@ -229,7 +232,8 @@ public class PlayGame {
 	 *                        upgrades
 	 * @param gameBoard,      an Arraylist of the current game board
 	 */
-	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayerId, ArrayList<AreaBoard> gameBoard) {
+	public static void addUpgrade(ArrayList<Player> currentPlayers, int currentPlayerId,
+			ArrayList<AreaBoard> gameBoard) {
 
 		System.out.println("Which area would you like to upgrade? Enter number.");
 
@@ -346,7 +350,7 @@ public class PlayGame {
 	public static int rollDice() {
 		int totalRoll = 0;
 		Random diceRoll = new Random();
-		for (int i = 0; i < numberOfDice; i++) {
+		for (int i = 0; i < NUMBER_OF_DICE; i++) {
 			int roll = diceRoll.nextInt(6) + 1;
 			System.out.println("Roll for dice " + (i + 1) + ": " + roll);
 			totalRoll += roll;

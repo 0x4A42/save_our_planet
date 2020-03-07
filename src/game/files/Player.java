@@ -11,6 +11,8 @@ package game.files;
  * @author v2.3 - Jordan, updating of documentation and validation
  * @author v4 - Catherine (remove money can't take more than a players total
  *         money, it returns the amount taken)
+ * @author v4.4 Jordan (ensure all instances of messages to user uses constant
+ *         values where applicable, to ensure easy maintainability of code)
  *
  */
 public class Player {
@@ -70,9 +72,9 @@ public class Player {
 		if (playerName.length() >= LOWER_NAME_LIMIT && playerName.length() <= UPPER_NAME_LIMIT) {
 			this.playerName = playerName;
 		} else if (playerName.length() > UPPER_NAME_LIMIT) {
-			this.playerName = playerName.substring(0, 15);
+			this.playerName = playerName.substring(0, UPPER_NAME_LIMIT);
 		} else if (playerName.length() < LOWER_NAME_LIMIT) {
-			throw new NullPointerException("Name must be at least one character long.");
+			throw new NullPointerException("Name must be at least " + LOWER_NAME_LIMIT + " character(s) long.");
 		}
 	}
 
@@ -95,7 +97,8 @@ public class Player {
 		if (money >= LOWER_MONEY_LIMIT) {
 			this.money = money;
 		} else {
-			throw new IllegalArgumentException("Error. You cannot enter a money value below 0.");
+			throw new IllegalArgumentException(
+					"Error. You cannot enter a money value below " + LOWER_MONEY_LIMIT + ".");
 		}
 
 	}
@@ -120,8 +123,8 @@ public class Player {
 		if (boardPosition >= LOWER_BOARD_POSITION_LIMIT && boardPosition <= UPPER_BOARD_POSITION_LIMIT) {
 			this.boardPosition = boardPosition;
 		} else {
-			throw new IllegalArgumentException(
-					"Board position must be between 0 - 11 (inclusive). You have entered " + boardPosition + ".");
+			throw new IllegalArgumentException("Board position must be between " + LOWER_BOARD_POSITION_LIMIT + " - "
+					+ UPPER_BOARD_POSITION_LIMIT + " (inclusive). You have entered " + boardPosition + ".");
 		}
 	}
 
@@ -143,8 +146,8 @@ public class Player {
 		if (playerId >= LOWER_PLAYER_ID && playerId <= UPPER_PLAYER_ID) {
 			this.playerId = playerId;
 		} else {
-			throw new IllegalArgumentException(
-					"Player ID must be between 1 - 4 (inclusive). You have entered: " + playerId + ".");
+			throw new IllegalArgumentException("Player ID must be between " + LOWER_PLAYER_ID + " - " + UPPER_PLAYER_ID
+					+ " (inclusive). You have entered: " + playerId + ".");
 		}
 	}
 

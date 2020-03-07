@@ -17,7 +17,10 @@ import java.util.ArrayList;
  * @author v4 - Catherine (buyMinorUpgrade/buyMajorUpgrade use
  *         removeMoney/gainMoney functions rather than directly setting money)
  * @author v4.1 Jordan (added constants to make code more readable)
- * @author v4.3 Catherine (add messages to make it clear what the player pays to upgrade)
+ * @author v4.3 Catherine (add messages to make it clear what the player pays to
+ *         upgrade)
+ * @author v4.4 Jordan (ensure all instances of messages to user uses constant
+ *         values where applicable, to ensure easy maintainability of code)
  */
 
 public class AreaBoard extends FieldBoard implements IBought {
@@ -82,7 +85,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			this.fieldId = fieldId;
 		} else {
 			throw new IllegalArgumentException(
-					"Field ID must be between 0 - 4 (inclusive). You have entered: " + fieldId + ".");
+					"Field ID must be between " +LOWER_FIELD_ID +" - " +UPPER_FIELD_ID +" (inclusive). You have entered: " + fieldId + ".");
 		}
 
 	}
@@ -119,7 +122,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			this.cost = 0;
 		} else if (cost < LOWER_COST_LIMIT || cost > UPPER_COST_LIMIT && this.fieldId != 0) {
 			throw new IllegalArgumentException(
-					"Cost must be between 50 - 80 (inclusive). You have entered: " + cost + ".");
+					"Cost must be between " +LOWER_COST_LIMIT +" - " +UPPER_COST_LIMIT +" (inclusive). You have entered: " + cost + ".");
 		}
 	}
 
