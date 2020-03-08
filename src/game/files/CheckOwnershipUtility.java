@@ -23,8 +23,8 @@ import java.util.ArrayList;
  */
 public class CheckOwnershipUtility {
 
-	private static final int MAJOR_UPGRADE_CHARGE = 50;
-	private static final int MINOR_UPGRADE_CHARGE = 10;
+	public static final int MAJOR_UPGRADE_CHARGE = 50;
+	public static final int MINOR_UPGRADE_CHARGE = 20;
 	private static final int BASE_CHARGE = 5;
 
 	/**

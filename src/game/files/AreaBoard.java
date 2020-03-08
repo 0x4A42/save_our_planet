@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class AreaBoard extends FieldBoard implements IBought {
 
-	private static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
+	public static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
 	private final int MAJOR_UPGRADE_LIMIT = 1;
 	private final int LOWER_PLAYER_ID = 1;
 	private final int UPPER_PLAYER_ID = 4;
@@ -168,8 +168,8 @@ public class AreaBoard extends FieldBoard implements IBought {
 		if (ownerId >= LOWER_PLAYER_ID && ownerId <= UPPER_PLAYER_ID) {
 			this.ownerId = ownerId;
 		} else {
-			throw new IllegalArgumentException(
-					"Owner ID must be between 1 - 4 (inclusive). You have entered: " + ownerId);
+			throw new IllegalArgumentException("Owner ID must be between " + LOWER_PLAYER_ID + " - " + UPPER_PLAYER_ID
+					+ "(inclusive). You have entered: " + ownerId);
 		}
 
 	}
@@ -200,11 +200,12 @@ public class AreaBoard extends FieldBoard implements IBought {
 		if (minorUpgrades <= UPPER_MINOR_UPGRADE_LIMIT && p.getMoney() > 20) {
 
 			minorUpgrades++;
-			p.removeMoney(20);
-			System.out.println(p.getPlayerName() + " pays 20 to add a minor upgrade");
-			System.out.println("Congratulations! You have upgraded the selected property.");
+			p.removeMoney(CheckOwnershipUtility.MINOR_UPGRADE_CHARGE);
+			System.out.println(p.getPlayerName() + " pays " + CheckOwnershipUtility.MINOR_UPGRADE_CHARGE
+					+ " to add a minor upgrade.");
+			System.out.println("Congratulations! You have added a minor upgrade to the selected property.");
 		} else {
-			System.out.println("you can't upgrade");
+			System.out.println("Sorry - you can't upgrade!");
 		}
 	}
 
@@ -217,11 +218,12 @@ public class AreaBoard extends FieldBoard implements IBought {
 		if (minorUpgrades == UPPER_MINOR_UPGRADE_LIMIT && majorUpgrades < MAJOR_UPGRADE_LIMIT & p.getMoney() > 50) {
 
 			majorUpgrades++;
-			p.removeMoney(50);
-			System.out.println(p.getPlayerName() + " pays 50 to add a minor upgrade");
-			System.out.println("You have upgraded");
+			p.removeMoney(CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE);
+			System.out.println(p.getPlayerName() + " pays " + CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE
+					+ " to add a major upgrade.");
+			System.out.println("Congratulations! You have added a major upgrade to the selected property.");
 		} else {
-			System.out.println("you cant upgrade");
+			System.out.println("Sorry - you cant upgrade!");
 		}
 	}
 

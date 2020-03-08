@@ -43,7 +43,7 @@ public class PlayGame {
 	public static Scanner input = new Scanner(System.in);
 	public static boolean continueGame = true;
 	private static final int NUMBER_OF_DICE = 2;
-	private static final int UPPER_MINOR_UPGRADE_LIMIT = 3;
+	private static final int MONEY_GAINED_PER_TURN = 75;
 
 	public static void main(String[] args) {
 
@@ -247,7 +247,7 @@ public class PlayGame {
 			 * If the property does not have the max amount of minor upgrades, purchase a
 			 * minor upgrade.
 			 */
-			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < UPPER_MINOR_UPGRADE_LIMIT) {
+			if (gameBoard.get(playerInputUpgrade).getMinorUpgrades() < AreaBoard.UPPER_MINOR_UPGRADE_LIMIT) {
 				gameBoard.get(playerInputUpgrade).buyMinorUpgrade(currentPlayers.get(currentPlayerId - 1));
 				/*
 				 * If the max amount of minor upgrades exist, purchase a Major upgrade.
@@ -285,8 +285,8 @@ public class PlayGame {
 		 */
 		if (newPosition > 11) {
 			newPosition -= 11;
-			currentPlayers.get(currentPlayer).gainMoney(75);
-			System.out.println("You have passed Start and gained 75 EcoCoins!");
+			currentPlayers.get(currentPlayer).gainMoney(MONEY_GAINED_PER_TURN);
+			System.out.println("You have passed Start and gained " + MONEY_GAINED_PER_TURN + " EcoCoins!");
 			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);
 		} else {
 			currentPlayers.get(currentPlayer).setBoardPosition(newPosition);

@@ -24,6 +24,7 @@ public class BoardSetUp {
 
 	private static final int LOWER_PLAYER_LIMIT = 2;
 	private static final int UPPER_PLAYER_LIMIT = 4;
+	private static int STARTING_MONEY = 125;
 
 	/**
 	 * 
@@ -43,7 +44,7 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the amount of Eco Warriors (" + LOWER_PLAYER_LIMIT + " - "
+			System.out.println("Please enter the number of Eco Warriors (" + LOWER_PLAYER_LIMIT + " - "
 					+ UPPER_PLAYER_LIMIT + ") playing.");
 
 			boolean stringIsInt = false;
@@ -59,7 +60,7 @@ public class BoardSetUp {
 					stringIsInt = true;
 
 				} catch (NumberFormatException e) {
-					System.out.println("Not a valid number, please try again");
+					System.err.println("Not a valid number, please try again!");
 				}
 
 			}
@@ -102,7 +103,7 @@ public class BoardSetUp {
 			input.reset();
 			player.setPlayerName(playerName);
 			player.setPlayerId(loop + 1);
-			player.setMoney(125);
+			player.setMoney(STARTING_MONEY);
 			player.setBoardPosition(0);
 
 			arrayPlayer.add(player);
