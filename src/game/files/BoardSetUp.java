@@ -24,7 +24,7 @@ public class BoardSetUp {
 
 	private static final int LOWER_PLAYER_LIMIT = 2;
 	private static final int UPPER_PLAYER_LIMIT = 4;
-	private static int STARTING_MONEY = 125;
+	private static final int STARTING_MONEY = 125;
 
 	/**
 	 * 

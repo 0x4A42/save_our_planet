@@ -126,30 +126,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 		}
 	}
 
-	/**
-	 * Checks if a property has been bought by checking first the property square is
-	 * ownable, and secondly that it has not been purchased by another player. Then
-	 * sets the owner to the player who purchased it.
-	 */
-
-	@Override
-	public void bought(int currentPlayer, ArrayList<Player> playerArray) {
-
-		if (isOwnable() && owned == false) {
-
-			if (playerArray.get(currentPlayer).getMoney() > cost) {
-				owned = true;
-				setOwnerId(playerArray.get(currentPlayer).getPlayerId());
-				playerArray.get(currentPlayer).removeMoney(cost);
-
-				System.out.println("You have bought: " + getSpaceName() + " for " + cost);
-				System.out.println("You now have " + playerArray.get(currentPlayer).getMoney());
-
-			}
-		}
-
-	}
-
+	
 	/**
 	 * 
 	 * @return the ID of the owner
@@ -191,6 +168,31 @@ public class AreaBoard extends FieldBoard implements IBought {
 	}
 
 	/**
+	 * Checks if a property has been bought by checking first the property square is
+	 * ownable, and secondly that it has not been purchased by another player. Then
+	 * sets the owner to the player who purchased it.
+	 */
+
+	@Override
+	public void bought(int currentPlayer, ArrayList<Player> playerArray) {
+
+		if (isOwnable() && owned == false) {
+
+			if (playerArray.get(currentPlayer).getMoney() > cost) {
+				owned = true;
+				setOwnerId(playerArray.get(currentPlayer).getPlayerId());
+				playerArray.get(currentPlayer).removeMoney(cost);
+
+				System.out.println("You have bought: " + getSpaceName() + " for " + cost);
+				System.out.println("You now have " + playerArray.get(currentPlayer).getMoney());
+
+			}
+		}
+
+	}
+	
+	
+	/**
 	 * Allows the player to buy minor upgrades
 	 * 
 	 * @param p (input player object)
@@ -226,5 +228,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			System.out.println("Sorry - you cant upgrade!");
 		}
 	}
+	
+
 
 }
