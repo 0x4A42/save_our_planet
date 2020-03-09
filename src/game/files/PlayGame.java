@@ -36,6 +36,7 @@ import java.util.Scanner;
  * @author v4.4 Jordan (updating naming of constants to ensure they follow
  *         convention - e.g numberOfDice to NUMBER_OF_DICE and updated any
  *         appearance of it within code).
+ * @author v4.5 Jordan (Made it so user must now confirm with a key entry when given the state of their portfolio or tries to upgrade but can't, updated economy values. )
  */
 public class PlayGame {
 
@@ -43,7 +44,7 @@ public class PlayGame {
 	public static Scanner input = new Scanner(System.in);
 	public static boolean continueGame = true;
 	private static final int NUMBER_OF_DICE = 2;
-	private static final int MONEY_GAINED_PER_TURN = 75;
+	private static final int MONEY_GAINED_PER_TURN = 40;
 
 	public static void main(String[] args) {
 
@@ -217,6 +218,8 @@ public class PlayGame {
 			// if no fields are owned, displays message to user
 		} else {
 			System.out.println("Sorry you have no upgrades available!\n");
+			System.out.println("Please enter any key to continue your turn.");
+			input.nextLine();
 		}
 
 		return canUpgrade;
@@ -377,7 +380,8 @@ public class PlayGame {
 
 			}
 		}
-
+		System.out.println("Please enter any key to continue your turn.");
+		input.nextLine();
 	}
 
 	/**

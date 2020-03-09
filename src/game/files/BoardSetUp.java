@@ -24,7 +24,7 @@ public class BoardSetUp {
 
 	private static final int LOWER_PLAYER_LIMIT = 2;
 	private static final int UPPER_PLAYER_LIMIT = 4;
-	private static final int STARTING_MONEY = 125;
+	private static final int STARTING_MONEY = 100;
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class BoardSetUp {
 		// prompt the user
 		while (validEntryNumberOfPlayers != true) {
 
-			System.out.println("Please enter the number of Eco Warriors (" + LOWER_PLAYER_LIMIT + " - "
+			System.out.println("Welcome to Save Our Planet! \nPlease enter the number of Eco Warriors (" + LOWER_PLAYER_LIMIT + " - "
 					+ UPPER_PLAYER_LIMIT + ") playing.");
 
 			boolean stringIsInt = false;
@@ -95,9 +95,25 @@ public class BoardSetUp {
 	public static ArrayList<Player> createPlayer(Scanner input, int amountOfPlayers, ArrayList<Player> arrayPlayer) {
 
 		for (int loop = 0; loop < amountOfPlayers; loop++) {
-
-			// System.out.println("Please enter the Eco Warrior's name.");
-			System.out.println("Please enter player name.");
+			String numberOfPlayer = null;
+			switch (loop) {
+			case 0: 
+				numberOfPlayer = "first";
+				break;
+			case 1: 
+				numberOfPlayer = "second";
+				break;
+			case 2: 
+				numberOfPlayer = "third";
+				break;
+			case 3: 
+				numberOfPlayer = "fourth";
+				break;
+			default: 
+				
+			}
+		 ;
+			System.out.println("Please enter " +numberOfPlayer +" player's name.");
 			Player player = new Player();
 			String playerName = input.nextLine();
 			input.reset();

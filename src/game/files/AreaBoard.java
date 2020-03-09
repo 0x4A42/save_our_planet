@@ -184,7 +184,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 				playerArray.get(currentPlayer).removeMoney(cost);
 
 				System.out.println("You have bought: " + getSpaceName() + " for " + cost);
-				System.out.println("You now have " + playerArray.get(currentPlayer).getMoney());
+				System.out.println("You now have " + playerArray.get(currentPlayer).getMoney() +" EcoCoins remaining!");
 
 			}
 		}
@@ -204,7 +204,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			minorUpgrades++;
 			p.removeMoney(CheckOwnershipUtility.MINOR_UPGRADE_CHARGE);
 			System.out.println(p.getPlayerName() + " pays " + CheckOwnershipUtility.MINOR_UPGRADE_CHARGE
-					+ " to add a minor upgrade.");
+					+ " EcoCoins to add a minor upgrade.");
 			System.out.println("Congratulations! You have added a minor upgrade to the selected property.");
 		} else {
 			System.out.println("Sorry - you can't upgrade!");
@@ -222,7 +222,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 			majorUpgrades++;
 			p.removeMoney(CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE);
 			System.out.println(p.getPlayerName() + " pays " + CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE
-					+ " to add a major upgrade.");
+					+ " EcoCoins to add a major upgrade.");
 			System.out.println("Congratulations! You have added a major upgrade to the selected property.");
 		} else {
 			System.out.println("Sorry - you cant upgrade!");
