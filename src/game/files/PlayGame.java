@@ -91,7 +91,7 @@ public class PlayGame {
 			System.out.println("\nEnter X to roll the dice...");
 			System.out.println("Enter U to upgrade your property...");
 			System.out.println("Enter P to view your portfolio...");
-			System.out.println("Enter Q to quit");
+			System.out.println("Enter Q to quit...");
 			// input.nextLine();
 			inputStr = input.nextLine();
 
@@ -133,7 +133,6 @@ public class PlayGame {
 					inputStr = input.nextLine();
 					roll = (rollDice());
 					movePosition(roll, currentPlayers, loop, gameBoard);
-
 					break;
 				}
 
@@ -328,7 +327,14 @@ public class PlayGame {
 
 		} else if (gameBoard.get(newPosition).isOwnable()
 				&& gameBoard.get(newPosition).getOwnerId() != currentPlayers.get(currentPlayer).getPlayerId()) {
-			System.out.println(currentBoardPosition + " is owned by " + gameBoard.get(newPosition).getOwnerId() + ".");
+			String playerOwner = "";
+			
+			for (Player p : currentPlayers) {
+				if (p.getPlayerId() == gameBoard.get(newPosition).getOwnerId()) {
+					playerOwner = p.getPlayerName();
+				}
+			}
+			System.out.println(currentBoardPosition + " is owned by " +playerOwner + ".");
 
 			CheckOwnershipUtility.chargePlayer(gameBoard, currentPlayers, currentPlayer);
 
@@ -396,6 +402,8 @@ public class PlayGame {
 		String loser = currentPlayers.get(currentPlayerIndex).getPlayerName();
 		if (answer.equalsIgnoreCase("y")) {
 			endGame(currentPlayers, loser);
+		} else {
+			
 		}
 
 	}
@@ -412,13 +420,13 @@ public class PlayGame {
 		System.out.println("\nPlayer " + loser + " has lost - game over!");
 		System.out.println("Final money of all players is: ");
 		for (Player player : currentPlayers) {
-			System.out.println(player.getPlayerName() + " : " + player.getMoney());
+			System.out.println(player.getPlayerName() + " : " + player.getMoney() +" Eco-Coins");
 			if (player.getMoney() > maxMoney && !player.getPlayerName().equals(loser)) {
 				maxMoney = player.getMoney();
 				winner = player.getPlayerName();
 			}
 		}
-		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney);
+		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney +" Eco-Coins");
 		continueGame = false;
 
 	}

@@ -178,7 +178,7 @@ public class AreaBoard extends FieldBoard implements IBought {
 
 		if (isOwnable() && owned == false) {
 
-			if (playerArray.get(currentPlayer).getMoney() > cost) {
+			if (playerArray.get(currentPlayer).getMoney() >= cost) {
 				owned = true;
 				setOwnerId(playerArray.get(currentPlayer).getPlayerId());
 				playerArray.get(currentPlayer).removeMoney(cost);
