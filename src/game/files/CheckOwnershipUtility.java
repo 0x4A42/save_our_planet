@@ -117,9 +117,9 @@ public class CheckOwnershipUtility {
 			int amount = player.get(currentPlayer).removeMoney(charge);
 			player.get(ownerOfPropertyArrayInput).gainMoney(amount);
 
-			System.out.println(player.get(currentPlayer).getPlayerName() + " has lost " + charge + " Eco-Coins");
+			System.out.println(player.get(currentPlayer).getPlayerName() + " has lost " + charge + " EcoCoins");
 			System.out.println(
-					player.get(ownerOfPropertyArrayInput).getPlayerName() + " has gained " + charge + " Eco-Coins");
+					player.get(ownerOfPropertyArrayInput).getPlayerName() + " has gained " + charge + " EcoCoins");
 
 		}
 	}

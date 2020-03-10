@@ -328,7 +328,9 @@ public class PlayGame {
 		} else if (gameBoard.get(newPosition).isOwnable()
 				&& gameBoard.get(newPosition).getOwnerId() != currentPlayers.get(currentPlayer).getPlayerId()) {
 			String playerOwner = "";
-			
+			/*
+			 * Finds owner ID, if same as player ID sets player name to String to output to screen
+			 */
 			for (Player p : currentPlayers) {
 				if (p.getPlayerId() == gameBoard.get(newPosition).getOwnerId()) {
 					playerOwner = p.getPlayerName();
@@ -420,13 +422,13 @@ public class PlayGame {
 		System.out.println("\nPlayer " + loser + " has lost - game over!");
 		System.out.println("Final money of all players is: ");
 		for (Player player : currentPlayers) {
-			System.out.println(player.getPlayerName() + " : " + player.getMoney() +" Eco-Coins");
+			System.out.println(player.getPlayerName() + " : " + player.getMoney() +" EcoCoins");
 			if (player.getMoney() > maxMoney && !player.getPlayerName().equals(loser)) {
 				maxMoney = player.getMoney();
 				winner = player.getPlayerName();
 			}
 		}
-		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney +" Eco-Coins");
+		System.out.println("\nThe winner is... " + winner + " with a total money of: " + maxMoney +" EcoCoins");
 		continueGame = false;
 
 	}
