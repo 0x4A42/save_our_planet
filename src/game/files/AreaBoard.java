@@ -218,7 +218,6 @@ public class AreaBoard extends FieldBoard implements IBought {
 	 */
 	public void buyMajorUpgrade(Player p) {
 		if (minorUpgrades == UPPER_MINOR_UPGRADE_LIMIT && majorUpgrades < MAJOR_UPGRADE_LIMIT & p.getMoney() > 50) {
-
 			majorUpgrades++;
 			p.removeMoney(CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE);
 			System.out.println(p.getPlayerName() + " pays " + CheckOwnershipUtility.MAJOR_UPGRADE_CHARGE
