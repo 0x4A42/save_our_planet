@@ -1,24 +1,8 @@
- #####     #    #     # #######    ####### #     # ######     ######  #          #    #     # ####### ####### 
-#     #   # #   #     # #          #     # #     # #     #    #     # #         # #   ##    # #          #    
-#        #   #  #     # #          #     # #     # #     #    #     # #        #   #  # #   # #          #    
- #####  #     # #     # #####      #     # #     # ######     ######  #       #     # #  #  # #####      #    
-      # #######  #   #  #          #     # #     # #   #      #       #       ####### #   # # #          #    
-#     # #     #   # #   #          #     # #     # #    #     #       #       #     # #    ## #          #    
- #####  #     #    #    #######    #######  #####  #     #    #       ####### #     # #     # #######    #  
+# Save Our Planet
 
+This project is an import from a group university project repo. The purpose of this game was to develop a small, monopoly style game which is played in the command line, developed in an agile setting.
 
-Welcome to the Save Our Planet README for CSC7053-1920-G2, created by Jordan Brown (40282125), Ricards Estemirovs (40126945),
-Rebekah Logan (40059637), Catherine McGuckin (40105486). This README was created by Jordan Brown (40282125).
-
--- About the Game --
-
- * Corrupt bureaucrats and selfish fat cats have left the planet in despair. They have pillaged the planet's resources for their own gain and now your assistance is required. You must spring to action and travel throughout the world in a bid to acquire renewable energy facilities and Save Our Planet! Once you acquire said renewable energy sources, you will have the opportunity to upgrade these facilities and make a greater impact in the war to Save Our Planet!
-
- * In the current version of the game, there are four fields consisting of areas ('properties') to acquire. The first, consisting of two areas, is representative of biomass energy. The second field, consisting of three areas, is representative of wind energy. The third field, consisting of three areas, related to solar energy. The fourth, and final, field in the game consists of two areas and relates to hydroelectric energy. 
-
- * A player will have the opportunity to purchase property when they land on a property square not currently owned. If they land on a property owned by another player, they will need to pay a fee to the owner (increasing with the amount of upgrades on that property). Players will have the opportunity to purchase upgrades to their properties when they own all areas within a field. For example to upgrade any property within the first field, a player would need to own both areas ('Ironbridge' and 'Polaniec').
-
- -- Rules --
+ ## Rules
 
  * Each game can have between 2 - 4 players (inclusive).
 
